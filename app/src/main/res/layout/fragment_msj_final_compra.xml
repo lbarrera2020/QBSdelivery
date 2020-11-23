@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MsjFinalCompraFragment">
+    <LinearLayout
+        android:id="@+id/containerMsjFinalCompra"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:src="@drawable/icono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:fontFamily="monospace"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#CF0303"
+            android:text="PEDIDO 1 REALIZADO SATISFACTORIAMENTE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+    </LinearLayout>
+
+</FrameLayout>

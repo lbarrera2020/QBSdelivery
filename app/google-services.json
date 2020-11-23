@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "99526019874",
+    "firebase_url": "https://electiva-4-proyecto.firebaseio.com",
+    "project_id": "electiva-4-proyecto",
+    "storage_bucket": "electiva-4-proyecto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99526019874:android:ad5783da802336935f337b",
+        "android_client_info": {
+          "package_name": "com.example.proyectoelectiva3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99526019874-ik7ea565604o56blka9bgsntu258k956.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyectoelectiva3",
+            "certificate_hash": "8d8b48bc2b0b99be01c001e3cc5c2d733ea6862d"
+          }
+        },
+        {
+          "client_id": "99526019874-0tjrae8u9m3o1nhg2pd8ttsg9l7ihkkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgLU41INDW7qvflj0gUoYiORAL_8a1s1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99526019874-0tjrae8u9m3o1nhg2pd8ttsg9l7ihkkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

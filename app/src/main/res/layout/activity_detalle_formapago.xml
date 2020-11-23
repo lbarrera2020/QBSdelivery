@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FormasPago.Detalle_formapago">
+
+    <TextView
+        android:id="@+id/tvTituloFpDet"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#D30206F6"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="DETALLE FORMA DE PAGO"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNombreFp"
+        android:hint="Nombre Forma de pago" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtDesFp"
+        android:hint="Descripcion Forma de pago"
+        android:gravity="start|top"
+        android:lines="3"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/tvEstadoFpDet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rdbActDetFp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Activo" />
+
+        <RadioButton
+            android:id="@+id/rdbInaDetFp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inactivo" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSaveDetFp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar" />
+
+    <Button
+        android:id="@+id/btnSalirDetFp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar" />
+</LinearLayout>

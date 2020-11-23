@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/homeCarruselFragment">
+
+    <fragment
+        android:id="@+id/homeCarruselFragment"
+        android:name="com.example.proyectoelectiva3.HomeCarruselFragment"
+        android:label="Inicio"
+        tools:layout="@layout/fragment_home_carrusel" />
+    <fragment
+        android:id="@+id/misPedidosFragment"
+        android:name="com.example.proyectoelectiva3.MisPedidosFragment"
+        android:label="Mis Pedidos"
+        tools:layout="@layout/fragment_mis_pedidos" />
+    <fragment
+        android:id="@+id/categoriasFragment2"
+        android:name="com.example.proyectoelectiva3.CategoriasFragment"
+        android:label="Categorias"
+        tools:layout="@layout/fragment_categorias" />
+    <fragment
+        android:id="@+id/carroComprasFragment"
+        android:name="com.example.proyectoelectiva3.CarroComprasFragment"
+        android:label="Carro Compras"
+        tools:layout="@layout/fragment_carro_compras" />
+    <fragment
+        android:id="@+id/llamarFragment"
+        android:name="com.example.proyectoelectiva3.LlamarFragment"
+        android:label="Llamar"
+        tools:layout="@layout/fragment_llamar" />
+    <fragment
+        android:id="@+id/salirFragment"
+        android:name="com.example.proyectoelectiva3.SalirFragment"
+        android:label="Salir"
+        tools:layout="@layout/fragment_salir" />
+    <fragment
+        android:id="@+id/finalizarCompraFragment"
+        android:name="com.example.proyectoelectiva3.FinalizarCompraFragment"
+        android:label="fragment_finalizar_compra"
+        tools:layout="@layout/fragment_finalizar_compra" />
+    <fragment
+        android:id="@+id/msjFinalCompraFragment"
+        android:name="com.example.proyectoelectiva3.MsjFinalCompraFragment"
+        android:label="fragment_msj_final_compra"
+        tools:layout="@layout/fragment_msj_final_compra" />
+    <fragment
+        android:id="@+id/productosByCategoriaFragment"
+        android:name="com.example.proyectoelectiva3.ProductosByCategoriaFragment"
+        android:label="fragment_productos_by_categoria"
+        tools:layout="@layout/fragment_productos_by_categoria" />
+
+</navigation>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:weightSum="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgItemCart"
+            android:src="@drawable/icono"
+            android:scaleType="centerCrop"
+            android:layout_width="90dp"
+            android:layout_height="90dp">
+        </ImageView>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="10"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nameItemCart"
+                android:text="Nombre Item"
+                android:textColor="#F60202"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/priceItemCart"
+                    android:text="$186.00"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/imgPorItemCart"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_baseline_clear_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/btnDecreaseItemCart"
+                    android:layout_weight="2"
+                    android:src="@mipmap/ic_item_cart_disminuir"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp">
+                </ImageView>
+                <TextView
+                    android:id="@+id/quantityItemCart"
+                    android:text="3"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+                <ImageView
+                    android:id="@+id/btnIncreaseItemCart"
+                    android:layout_weight="2"
+                    android:src="@mipmap/ic_item_cart_agregar"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp">
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/imgEqualItemCart"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_item_cart_equal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </ImageView>
+
+                <TextView
+                    android:id="@+id/subTotalItemCart"
+                    android:text="$650.52"
+                    android:textSize="16sp"
+                    android:layout_weight="5"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/labelDescuentoItemCart"
+                    android:text="Descuento: "
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/descuentoItemCart"
+                    android:text=""
+                    android:layout_marginRight="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/labelRebajaItemCart"
+                    android:text="Rebaja: "
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/rebajaItemCart"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnDeleteItemCart"
+            android:src="@drawable/ic_item_cart_eliminar"
+            android:scaleType="centerCrop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

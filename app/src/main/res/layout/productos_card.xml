@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="4dp"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:id="@+id/relativelayout2"
+        android:layout_width="390dp"
+        android:layout_height="280dp">
+
+        <ImageView
+            android:id="@+id/imagen2"
+            android:layout_width="188dp"
+            android:layout_height="261dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="19dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/categorias2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/imagen2"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/descripcion2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/categorias2"
+            android:layout_alignLeft="@+id/categorias2"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descripcion2"
+            android:layout_alignLeft="@+id/descripcion2"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-1dp"
+            android:text="TextView"
+            android:textSize="36sp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descripcion2"
+            android:layout_alignLeft="@+id/descripcion2"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-1dp"
+            android:text="TextView"
+            android:visibility="invisible"
+            android:textSize="36sp" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descripcion2"
+            android:layout_alignLeft="@+id/descripcion2"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="174dp"
+            android:text="Añadir a carrito"
+            android:textColor="#EF1212"
+            android:textColorLink="#FFFFFF" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

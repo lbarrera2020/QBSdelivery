@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".admin.DetalleCategoria">
+
+    <TextView
+        android:id="@+id/tvTituloCatDet"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#D30206F6"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="DETALLE CATEGORIA"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNombreCat"
+        android:hint="Nombre Categoria" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtDesCat"
+        android:hint="Descripcion Categoria"
+        android:gravity="start|top"
+        android:lines="3"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnSelectArchivo"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:text="Buscar archivo" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reLayImg"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgFotoCat"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tvEstadoCatDet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Estado" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rdbActDetCat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Activo" />
+
+        <RadioButton
+            android:id="@+id/rdbInaDetCat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inactivo" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSaveArt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar" />
+
+    <Button
+        android:id="@+id/btnSalirDeArt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar" />
+
+
+</LinearLayout>

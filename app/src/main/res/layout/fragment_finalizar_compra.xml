@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FinalizarCompraFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="#F60202"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="SELECCIONAR FECHA Y HORA ENTREGA"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnAbrirCalendario"
+            android:text="Mostrar calendario"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:padding="15dp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"
+            android:background="#D30206F6"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="#F60202"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="SELECCIONAR DIRECCION ENVIO"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold" />
+        <Spinner
+            android:id="@+id/spDireccionEnvio"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </Spinner>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="26dp"
+            android:background="#F60202"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="SELECCIONAR FORMA DE PAGO"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <RadioGroup
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/rdbEfectivo"
+                android:text="Efectivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </RadioButton>
+            <RadioButton
+                android:id="@+id/rdbTarjeta"
+                android:text="Tarjeta de credito/debito"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </RadioButton>
+        </RadioGroup>
+        <ImageView
+            android:src="@drawable/credit2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnFinalizarCompra"
+        android:layout_alignParentBottom="true"
+        android:text="Finalizar Compra"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:layout_marginBottom="60dp"
+        android:background="#F60202"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Button>
+</RelativeLayout>
