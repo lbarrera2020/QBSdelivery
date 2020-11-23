@@ -242,8 +242,14 @@ public class MainActivity extends AppCompatActivity {
                                 Intent i= new Intent(getApplicationContext(),principal_navigation.class);
                                 i.putExtra( "nombre",nombre);
                                 i.putExtra("email", correo);
+                                String asunto = "Bienvenido(a) a Qb's Delivery";
+                                String contenido = "<BR><I>" + "Estimado(a) "+ nombre +": " + "</BR></I>" +
+                                        "<BR><p style=font-size:30px>¡Gracias por registrarte con Qb's Delivery Sv!</p>" +
+                                        "<p style=font-size:25px>Esperamos que sea tengas una experiencia de compra inolvidable con nosotros</p>" +
+                                        "<BR>" +
+                                        "<img src=https://firebasestorage.googleapis.com/v0/b/electiva-4-proyecto.appspot.com/o/picture%2Fmail.PNG?alt=media&token=516d3803-0b99-4a0f-a226-2a33fb792aa1 alt=Facebook border=0 />";
 
-                                envio.EnviarCorreo(correo,nombre);
+                                envio.EnviarCorreo(correo,nombre, asunto,contenido);
 
                                 startActivity(i);
                                 finish();
