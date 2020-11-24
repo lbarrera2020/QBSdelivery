@@ -73,8 +73,6 @@ public class MsjFinalCompraFragment extends Fragment {
     private void limpiarCarroCompras()
     {
 
-        Toast.makeText(getContext(), "limpiarCarroCompras Id carro compras:  " + idCarroCompras, Toast.LENGTH_LONG).show();
-
         if (idCarroCompras != null && !idCarroCompras.isEmpty())
         {
             repoDB = new CarroComprasRepository();
