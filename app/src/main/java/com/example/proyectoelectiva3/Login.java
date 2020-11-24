@@ -73,9 +73,9 @@ public class Login extends AppCompatActivity {
                         //Intent i = new Intent(getApplicationContext(), menu_admin.class);
                         Intent i = new Intent(getApplicationContext(), AdminMenu.class);
                         startActivity(i);
-                    }else {
+                    }else if(correo.equals("rep01@qbsdelivery.com")){
 
-                        Intent i = new Intent(getApplicationContext(), principal_navigation.class);
+                        Intent i = new Intent(getApplicationContext(), repartidorActivity.class);
                         startActivity(i);
                     }
                 }

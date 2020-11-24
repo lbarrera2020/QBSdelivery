@@ -92,7 +92,7 @@ public class CarroComprasFragment extends Fragment {
         tvFooterDescuentos = carroFragment.findViewById(R.id.tvFooterCartDescuentos);
         tvFooterTotal = carroFragment.findViewById(R.id.tvFooterCartTotal);
         recyclerViewCarro = carroFragment.findViewById(R.id.recyclerCart);
-        btnContinuar = carroFragment.findViewById(R.id.btnCartFooterContinuar);
+        btnContinuar = carroFragment.findViewById(R.id.btnCartFooterSalir);
 
         recyclerViewCarro.setHasFixedSize(true);
 
