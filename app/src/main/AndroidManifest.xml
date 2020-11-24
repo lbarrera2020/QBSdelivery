@@ -32,6 +32,7 @@
         <activity android:name=".RvCategorias" />
         <activity android:name=".Login" />
         <activity android:name=".MantUsuario" />
+        <activity android:name=".MantDireccion" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>

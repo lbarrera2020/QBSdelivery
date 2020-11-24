@@ -18,6 +18,13 @@
         android:paddingTop="12dp"
         />
     <EditText
+        android:id="@+id/txt_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="text|phone"
+        android:hint="Telefono" />
+    <EditText
         android:id="@+id/txt_correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

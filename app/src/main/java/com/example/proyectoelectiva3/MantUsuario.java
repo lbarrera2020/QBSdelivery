@@ -30,7 +30,7 @@ public class MantUsuario extends AppCompatActivity {
     private List<Usuarios> listPerson = new ArrayList<Usuarios>();
     ArrayAdapter<Usuarios> arrayAdapterPersona;
 
-    EditText nomP, passwP, correoP, rollP;
+    EditText nomP, passwP, correoP, rolP, telP;
     ListView lisVP;
 
     FirebaseDatabase firebaseDatabase;
@@ -46,7 +46,8 @@ public class MantUsuario extends AppCompatActivity {
         nomP = findViewById(R.id.txt_nombrePersona);
         passwP = findViewById(R.id.txt_passwd);
         correoP = findViewById(R.id.txt_correo);
-        rollP = findViewById(R.id.txt_roll);
+        telP = findViewById(R.id.txt_tel);
+        rolP = findViewById(R.id.txt_roll);
         lisVP = findViewById(R.id.lv_datospersonas);
 
         inicialisarFirebase();
@@ -56,9 +57,10 @@ public class MantUsuario extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 personaSelected = (Usuarios) parent.getItemAtPosition(position);
                 nomP.setText(personaSelected.getNombre());
+                telP.setText(personaSelected.getTel());
                 passwP.setText(personaSelected.getContraseña());
                 correoP.setText(personaSelected.getCorreo());
-                rollP.setText(personaSelected.getRoll());
+                rolP.setText(personaSelected.getRol());
             }
         });
     }
@@ -100,13 +102,14 @@ public class MantUsuario extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         String nombre= nomP.getText().toString();
+        String tel= telP.getText().toString();
         String pass= passwP.getText().toString();
         String correo= correoP.getText().toString();
-        String roll= rollP.getText().toString();
+        String rol= rolP.getText().toString();
 
         switch (item.getItemId()){
             case R.id.icon_add: {
-                if (nombre.equals("")||pass.equals("")||correo.equals("")||roll.equals("")){
+                if (nombre.equals("")||tel.equals("")||pass.equals("")||correo.equals("")||rol.equals("")){
                     validacion();
                 }else{
                     Usuarios p = new Usuarios();
@@ -118,8 +121,9 @@ public class MantUsuario extends AppCompatActivity {
                     p.setUid(UUID.randomUUID().toString());
                     p.setNombre(nombre);
                     p.setContraseña(pass);
+                    p.setTel(tel);
                     p.setCorreo(correo);
-                    p.setRoll(roll);
+                    p.setRol(rol);
                     p.setDirecciones(lista);
                     databaseReference.child("Usuarios").child(p.getUid()).setValue(p);
                     Toast.makeText(getApplicationContext(), "Agregado", Toast.LENGTH_LONG).show();
@@ -131,9 +135,10 @@ public class MantUsuario extends AppCompatActivity {
                 Usuarios p = new Usuarios();
                 p.setUid(personaSelected.getUid());
                 p.setNombre(nomP.getText().toString().trim());
+                p.setTel(telP.getText().toString().trim());
                 p.setContraseña(passwP.getText().toString().trim());
                 p.setCorreo(correoP.getText().toString().trim());
-                p.setRoll(rollP.getText().toString().trim());
+                p.setRol(rolP.getText().toString().trim());
                 databaseReference.child("Usuarios").child(p.getUid()).setValue(p);
                 Toast.makeText(this, "Guardar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
@@ -154,9 +159,10 @@ public class MantUsuario extends AppCompatActivity {
 
     private void limpiarCajas() {
         nomP.setText("");
+        telP.setText("");
         passwP.setText("");
         correoP.setText("");
-        rollP.setText("");
+        rolP.setText("");
     }
 
     private void validacion(){

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:paddingTop="@android:dimen/app_icon_size"
+    tools:context=".MantDireccion"
+    >
+    <Spinner
+        android:id="@+id/txt_dep"
+        android:ems="10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        />
+<!--    <EditText-->
+<!--        android:id="@+id/txt_dep"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:hint="Departamento"-->
+<!--        android:paddingTop="12dp"-->
+<!--        />-->
+    <EditText
+        android:id="@+id/txt_mun"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Municipio"
+        android:paddingTop="12dp"
+        />
+    <EditText
+        android:id="@+id/txt_ciudad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Ciudad"
+        android:paddingTop="12dp"
+        />
+    <EditText
+        android:id="@+id/txt_direc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Direccion"
+        android:paddingTop="12dp"
+        />
+
+</LinearLayout>

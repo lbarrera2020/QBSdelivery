@@ -6,12 +6,17 @@ public class Usuarios {
     private String Uid;
     private String nombre;
     private String correo;
+    private String tel;
     private String contraseña;
     private String rol;
     private List<Direcciones> direcciones;
 
     public Usuarios() {
     }
+
+    public String getTel() {return tel;}
+
+    public void setTel(String tel) {this.tel = tel;}
 
     public List<Direcciones> getDirecciones() {
         return direcciones;
@@ -53,11 +58,11 @@ public class Usuarios {
         this.contraseña = contraseña;
     }
 
-    public String getRoll() {
+    public String getRol() {
         return rol;
     }
 
-    public void setRoll(String rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 

@@ -46,19 +46,21 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+
 import com.example.proyectoelectiva3.EnvioCorreo;
 
 public class MainActivity extends AppCompatActivity {
 
 
 
-    EditText edtNombre, edtCorreo, edtContraseña;
+    EditText edtNombre, edtCorreo, edtContraseña, edtTel;
     Button btnRegistrar, btnLogin;
     ImageView logo;
     EnvioCorreo envio = new EnvioCorreo();
 
 
-    String nombre,contraseña,correo,id;
+    String nombre,tel,contraseña,correo,id;
     CallbackManager mCallbackManager;
     FirebaseAuth autenticacion;
     FirebaseAuth.AuthStateListener authStateListener;
@@ -75,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         edtNombre= findViewById(R.id.edtNombre);
         edtContraseña= findViewById(R.id.edtPassword);
+        edtTel=findViewById(R.id.edtTel);
         edtCorreo=findViewById(R.id.edtEmail);
         btnRegistrar= findViewById(R.id.btnRegistrar);
         btnLogin= findViewById(R.id.btnLogin);
@@ -141,12 +144,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 nombre= edtNombre.getText().toString().trim();
+                tel= edtTel.getText().toString().trim();
                 contraseña= edtContraseña.getText().toString().trim();
                 correo= edtCorreo.getText().toString().trim();
 
                 if (TextUtils.isEmpty(nombre)) {
                     edtNombre.requestFocus();
                     edtNombre.setError("Dato requerido");
+                }
+                if (TextUtils.isEmpty(tel)) {
+                    edtTel.requestFocus();
+                    edtTel.setError("Dato requerido");
                 }
                 else if (TextUtils.isEmpty(contraseña)) {
                     edtContraseña.requestFocus();
@@ -227,9 +235,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                    id= autenticacion.getCurrentUser().getUid();
+//                    id= autenticacion.getCurrentUser().getUid();
+                    id= UUID.randomUUID().toString();
 
                     Map<String, Object> map = new HashMap<>();
+                    map.put("rol", "usuario");
+                    map.put("tel", tel);
                     map.put("nombre", nombre);
                     map.put("correo", correo);
                     map.put("contraseña", contraseña);
@@ -239,11 +250,14 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task2) {
                             if (task2.isSuccessful()){
-                                Intent i= new Intent(getApplicationContext(),principal_navigation.class);
+                                System.out.print("aqui");
+//                                Intent i= new Intent(getApplicationContext(),principal_navigation.class);
+                                Intent i= new Intent(getApplicationContext(),MantDireccion.class);
                                 i.putExtra( "nombre",nombre);
                                 i.putExtra("email", correo);
+                                i.putExtra("uid", id);
 
-                                envio.EnviarCorreo(correo,nombre);
+//                                envio.EnviarCorreo(correo,nombre);
 
                                 startActivity(i);
                                 finish();

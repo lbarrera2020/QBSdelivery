@@ -1,8 +1,26 @@
 package com.example.proyectoelectiva3.admin;
 
 public class Direcciones {
+    private String Departamento;
+    private String Municipio;
     private String Ciudad;
     private String Direccion;
+
+    public String getDepartamento() {
+        return Departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        Departamento = departamento;
+    }
+
+    public String getMunicipio() {
+        return Municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        Municipio = municipio;
+    }
 
     public String getCiudad() {
         return Ciudad;
