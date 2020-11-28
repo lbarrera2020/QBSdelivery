@@ -1,5 +1,7 @@
 package com.example.proyectoelectiva3.carrocompras;
 
+import android.text.TextUtils;
+
 import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.articulosEntity;
 
@@ -58,6 +60,7 @@ public class CarroCompraService {
                                     item.setNombreImagen(prod.getImageName());
                                     item.setNombreProducto(prod.getNombre());
                                     item.setIdCarroCompras(carro.getIdCart());
+                                    item.setIdCliente(idCliente);
 
                                     if (prod.getPrecio() != null && !prod.getPrecio().isEmpty())
                                         item.setPrecio( Double.parseDouble(prod.getPrecio()));
@@ -87,9 +90,9 @@ public class CarroCompraService {
                                     carro.setImpuestos(0D);
                                     Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
                                     for (ItemCarroCompraModel i: carro.getItems()) {
-                                        totalDescuentos += i.getDescuento();
+                                        totalDescuentos += i.getDescuento() * i.getCantidad();
                                         totalSubTotal += i.getSubTotal();
-                                        totalRebajas += i.getRebaja();
+                                        totalRebajas += i.getRebaja() * i.getCantidad();
                                     }
                                     carro.setDescuentos(totalDescuentos);
                                     carro.setSubTotal(totalSubTotal);
@@ -156,6 +159,7 @@ public class CarroCompraService {
                                 item.setNombreImagen(prod.getImageName());
                                 item.setNombreProducto(prod.getNombre());
                                 item.setIdCarroCompras(car.getIdCart());
+                                item.setIdCliente(idCliente);
 
                                 if (prod.getPrecio() != null && !prod.getPrecio().isEmpty())
                                     item.setPrecio( Double.parseDouble(prod.getPrecio()));
@@ -231,4 +235,143 @@ public class CarroCompraService {
 
     }
 
+    public void eliminarItemCarroCompras(final ItemCarroCompraModel itemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        repoDB = new CarroComprasRepository();
+
+        repoDB.getKeyItemCarroCompra(itemCarro, new IStringResultProcess() {
+            @Override
+            public void onCallBackSuccess(String keyItemCarro) {
+                if (keyItemCarro != null && !keyItemCarro.isEmpty())
+                {
+                    repoDB.eliminarItemCarroCompra(itemCarro, keyItemCarro, new IStringResultProcess() {
+                        @Override
+                        public void onCallBackSuccess(String result) {
+                            callBackResultProcess.onCallBackSuccess(result);
+                        }
+
+                        @Override
+                        public void onCallBackFail(String msjError) {
+                            callBackResultProcess.onCallBackFail(msjError);
+                        }
+                    });
+                }
+                else
+                    callBackResultProcess.onCallBackFail("Error");
+            }
+
+            @Override
+            public void onCallBackFail(String msjError) {
+                callBackResultProcess.onCallBackFail(msjError);
+            }
+        });
+
+    }
+
+    public void updateCarroCompras(String idCliente, final String idItem, final int newCantidad, final IStringResultProcess callBackResultProcess)
+    {
+        repoDB = new CarroComprasRepository();
+        if (!TextUtils.isEmpty(idItem))
+        {
+            repoDB.getCarroComprasByCliente(idCliente, new IGetSingleObject<CarroComprasModel>() {
+                @Override
+                public void onCallBackSuccess(CarroComprasModel carro) {
+                    if (carro != null)
+                    {
+                        for (ItemCarroCompraModel i: carro.getItems()) {
+                            if (i.getIdItem().equals(idItem))
+                            {
+                                i.setCantidad(newCantidad);
+
+                                i.setSubTotal(i.getPrecio() * i.getCantidad());
+
+                                if (i.getPrecio() > 0)
+                                    i.setTotal(i.getSubTotal() - (i.getDescuento() * i.getCantidad() ) - (i.getRebaja() * i.getCantidad()));
+                                else
+                                    i.setTotal(0D);
+
+                                Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
+                                for (ItemCarroCompraModel ite: carro.getItems()) {
+                                    if (ite.getIdItem().equals(idItem))
+                                    {
+                                        totalDescuentos += i.getDescuento() * i.getCantidad();
+                                        totalSubTotal += i.getSubTotal();
+                                        totalRebajas += i.getRebaja() * i.getCantidad();
+                                    }
+                                    else{
+                                        totalDescuentos += ite.getDescuento() * ite.getCantidad() ;
+                                        totalSubTotal += ite.getSubTotal();
+                                        totalRebajas += ite.getRebaja() * ite.getCantidad();
+                                    }
+                                }
+                                carro.setDescuentos(totalDescuentos);
+                                carro.setSubTotal(totalSubTotal);
+                                carro.setRebajas(totalRebajas);
+                                carro.setTotalDescuentos(totalDescuentos + totalRebajas);
+                                carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
+
+                                repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
+                                    @Override
+                                    public void onCallBackSuccess(String result) {
+                                        callBackResultProcess.onCallBackSuccess(result);
+                                    }
+
+                                    @Override
+                                    public void onCallBackFail(String msjError) {
+                                        callBackResultProcess.onCallBackFail(msjError);
+                                    }
+                                });
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCallBackFail(String msjError) {
+                    callBackResultProcess.onCallBackFail(msjError);
+                }
+            });
+        }
+        else //Despues de eliminar
+        {
+            repoDB.getCarroComprasByCliente(idCliente, new IGetSingleObject<CarroComprasModel>() {
+                @Override
+                public void onCallBackSuccess(CarroComprasModel carro) {
+                    if (carro != null)
+                    {
+                        Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
+                        for (ItemCarroCompraModel i: carro.getItems()) {
+                            totalDescuentos += i.getDescuento() * i.getCantidad();
+                            totalSubTotal += i.getSubTotal();
+                            totalRebajas += i.getRebaja() * i.getCantidad();
+                        }
+                        carro.setDescuentos(totalDescuentos);
+                        carro.setSubTotal(totalSubTotal);
+                        carro.setRebajas(totalRebajas);
+                        carro.setTotalDescuentos(totalDescuentos + totalRebajas);
+                        carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
+
+                        repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
+                            @Override
+                            public void onCallBackSuccess(String result) {
+                                callBackResultProcess.onCallBackSuccess(result);
+                            }
+
+                            @Override
+                            public void onCallBackFail(String msjError) {
+                                callBackResultProcess.onCallBackFail(msjError);
+                            }
+                        });
+
+                    }
+                }
+
+                @Override
+                public void onCallBackFail(String msjError) {
+                    callBackResultProcess.onCallBackFail(msjError);
+                }
+            });
+        }
+    }
 }

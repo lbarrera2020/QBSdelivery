@@ -3,6 +3,7 @@ package com.example.proyectoelectiva3.carrocompras;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class CarroComprasAdapter extends RecyclerView.Adapter<CarroComprasAdapte
     private Context context;
     private CarroComprasRepository repoDB;
     boolean readOnly;
+    private CarroCompraService service;
 
     public CarroComprasAdapter(List<ItemCarroCompraModel> items, Context context, boolean readOnly)
     {
@@ -93,6 +95,7 @@ public class CarroComprasAdapter extends RecyclerView.Adapter<CarroComprasAdapte
 
         repoDB = new CarroComprasRepository();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference(AdminUtils.STORAGE_FOLDER_PRODUCTOS);
+        Log.i("CartAdapter","onBindViewHolder, position: " + position +  " Count Items: " + items.size());
         String nombreImage = items.get(position).getNombreImagen();
         String idProducto =  items.get(position).getIdProducto();
 
@@ -165,14 +168,16 @@ public class CarroComprasAdapter extends RecyclerView.Adapter<CarroComprasAdapte
         holder.btnEliminarItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                service = new CarroCompraService();
 
                 //Eliminar el item del carro
-                repoDB.eliminarItemCarroCompra((ItemCarroCompraModel) items.get(position), new IStringResultProcess() {
+                service.eliminarItemCarroCompras((ItemCarroCompraModel) items.get(position), new IStringResultProcess() {
                     @Override
                     public void onCallBackSuccess(String result) {
                         if ("OK".equals(result))
                         {
                             Toast.makeText(context,"Item removido con exito", Toast.LENGTH_LONG).show();
+                            notifyItemDeleted(position);
                             //Actualizar los totales del carro
                         }
                         else
@@ -192,6 +197,13 @@ public class CarroComprasAdapter extends RecyclerView.Adapter<CarroComprasAdapte
     @Override
     public int getItemCount() {
         return  items.size();
+    }
+
+    private void notifyItemDeleted(int position)
+    {
+        Log.i("notifyItemDel","Inicio");
+        this.notifyItemRemoved(position);
+        Log.i("notifyItemDel","Fin");
     }
 
 }

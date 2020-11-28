@@ -55,5 +55,7 @@ dependencies {
     implementation files('src/main/java/com/example/proyectoelectiva3/lib/mail.jar')
     implementation files('src/main/java/com/example/proyectoelectiva3/lib/additionnal.jar')
     implementation files('src/main/java/com/example/proyectoelectiva3/lib/activation.jar')
+    implementation 'com.firebaseui:firebase-ui-database:7.1.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

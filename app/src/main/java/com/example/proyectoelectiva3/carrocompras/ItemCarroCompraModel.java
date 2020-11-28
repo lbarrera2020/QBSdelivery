@@ -17,6 +17,8 @@ public class ItemCarroCompraModel {
     private String nombreProducto;
     @Exclude
     private String idCarroCompras;
+    private String idCliente;
+
 
     public ItemCarroCompraModel(){}
 
@@ -118,5 +120,13 @@ public class ItemCarroCompraModel {
 
     public void setIdCarroCompras(String idCarroCompras) {
         this.idCarroCompras = idCarroCompras;
+    }
+
+    public String getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
     }
 }

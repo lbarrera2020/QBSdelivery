@@ -33,7 +33,8 @@ public class CarroComprasRepository {
 
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            //dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).setValue(carro)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -61,7 +62,7 @@ public class CarroComprasRepository {
 
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).setValue(carro)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -86,7 +87,7 @@ public class CarroComprasRepository {
     {
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).removeValue()
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).removeValue()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -107,11 +108,11 @@ public class CarroComprasRepository {
         }
     }
 
-    public void eliminmarCarroCompras(String idCarro, final IStringResultProcess callBackResultProcess)
+    public void eliminmarCarroCompras(String idCliente, final IStringResultProcess callBackResultProcess)
     {
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCarro).removeValue()
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).removeValue()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -291,5 +292,69 @@ public class CarroComprasRepository {
         }
     }
 
+    public void getKeyItemCarroCompra(final ItemCarroCompraModel itemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("getKeyItemCarroCompra","Inicio");
+        try {
+            initDB();
 
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(itemCarro.getIdCliente()).child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.i("getKeyItemCarroCompra","Ingresa en onDataChange");
+                    String result = "";
+                    for (DataSnapshot objSnapshot : snapshot.getChildren())
+                    {
+                        ItemCarroCompraModel itemAux = objSnapshot.getValue(ItemCarroCompraModel.class);
+                        if (itemAux.getIdItem().equals(itemCarro.getIdItem()))
+                        {
+                            result = objSnapshot.getKey();
+                            break;
+                        }
+                    }
+                    callBackResultProcess.onCallBackSuccess(result);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("getKeyItemCarroCompra","Error al tratar de obtener dato " + error.getMessage());
+                    callBackResultProcess.onCallBackFail("Error");
+                }
+            });
+
+        }
+        catch (Exception ex){
+            Log.e("getKeyItemCarroCompra","Error inesperado", ex);
+            callBackResultProcess.onCallBackFail("Error");
+        }
+        Log.i("getKeyItemCarroCompra","Fin");
+    }
+
+    public void eliminarItemCarroCompra(final ItemCarroCompraModel itemCarro, String keyItemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("eliminando","Inicio");
+        try {
+            initDB();
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(itemCarro.getIdCliente()).child("items").child(keyItemCarro).removeValue()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("eliminando","Ingresa en onSuccess...");
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("eliminando","Error al tratar de eliminar Item  de carro compra", e);
+                            callBackResultProcess.onCallBackFail("Error al tratar de eliminar el item");
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Log.e("eliminando","Error eliminando Item de carro de compras", ex);
+            callBackResultProcess.onCallBackFail("Error inesperado al tratar de eliminar item del carro");
+        }
+        Log.i("eliminando","Fin");
+    }
 }
