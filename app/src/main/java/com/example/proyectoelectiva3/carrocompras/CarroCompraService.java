@@ -1,12 +1,14 @@
 package com.example.proyectoelectiva3.carrocompras;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.articulosEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class CarroCompraService {
@@ -24,10 +26,13 @@ public class CarroCompraService {
         boolean flag = false;
 
         for (ItemCarroCompraModel i: carro.getItems()) {
-            if (i.getIdProducto().equals(newItemId))
+            if (i != null)
             {
-                flag = true;
-                break;
+                if (i.getIdProducto().equals(newItemId))
+                {
+                    flag = true;
+                    break;
+                }
             }
         }
         return flag;
@@ -41,7 +46,7 @@ public class CarroCompraService {
         repoDB.getCarroComprasByCliente(idCliente, new IGetSingleObject<CarroComprasModel>() {
             @Override
             public void onCallBackSuccess(final CarroComprasModel carro) {
-
+git
                 if (carro != null) //Se va agregar un nuevo producto
                 {
                     if (!existeProductoEnCarro(carro,idProducto)) //No poder ingresar el mismo producto en el carro...
@@ -90,9 +95,12 @@ public class CarroCompraService {
                                     carro.setImpuestos(0D);
                                     Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
                                     for (ItemCarroCompraModel i: carro.getItems()) {
-                                        totalDescuentos += i.getDescuento() * i.getCantidad();
-                                        totalSubTotal += i.getSubTotal();
-                                        totalRebajas += i.getRebaja() * i.getCantidad();
+                                        if (i != null)
+                                        {
+                                            totalDescuentos += i.getDescuento() * i.getCantidad();
+                                            totalSubTotal += i.getSubTotal();
+                                            totalRebajas += i.getRebaja() * i.getCantidad();
+                                        }
                                     }
                                     carro.setDescuentos(totalDescuentos);
                                     carro.setSubTotal(totalSubTotal);
@@ -279,49 +287,55 @@ public class CarroCompraService {
                     if (carro != null)
                     {
                         for (ItemCarroCompraModel i: carro.getItems()) {
-                            if (i.getIdItem().equals(idItem))
+                            if (i != null)
                             {
-                                i.setCantidad(newCantidad);
+                                if (i.getIdItem().equals(idItem))
+                                {
+                                    i.setCantidad(newCantidad);
 
-                                i.setSubTotal(i.getPrecio() * i.getCantidad());
+                                    i.setSubTotal(i.getPrecio() * i.getCantidad());
 
-                                if (i.getPrecio() > 0)
-                                    i.setTotal(i.getSubTotal() - (i.getDescuento() * i.getCantidad() ) - (i.getRebaja() * i.getCantidad()));
-                                else
-                                    i.setTotal(0D);
+                                    if (i.getPrecio() > 0)
+                                        i.setTotal(i.getSubTotal() - (i.getDescuento() * i.getCantidad() ) - (i.getRebaja() * i.getCantidad()));
+                                    else
+                                        i.setTotal(0D);
 
-                                Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
-                                for (ItemCarroCompraModel ite: carro.getItems()) {
-                                    if (ite.getIdItem().equals(idItem))
-                                    {
-                                        totalDescuentos += i.getDescuento() * i.getCantidad();
-                                        totalSubTotal += i.getSubTotal();
-                                        totalRebajas += i.getRebaja() * i.getCantidad();
+                                    Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
+                                    for (ItemCarroCompraModel ite: carro.getItems()) {
+                                        if (ite != null)
+                                        {
+                                            if (ite.getIdItem().equals(idItem))
+                                            {
+                                                totalDescuentos += i.getDescuento() * i.getCantidad();
+                                                totalSubTotal += i.getSubTotal();
+                                                totalRebajas += i.getRebaja() * i.getCantidad();
+                                            }
+                                            else{
+                                                totalDescuentos += ite.getDescuento() * ite.getCantidad() ;
+                                                totalSubTotal += ite.getSubTotal();
+                                                totalRebajas += ite.getRebaja() * ite.getCantidad();
+                                            }
+                                        }
                                     }
-                                    else{
-                                        totalDescuentos += ite.getDescuento() * ite.getCantidad() ;
-                                        totalSubTotal += ite.getSubTotal();
-                                        totalRebajas += ite.getRebaja() * ite.getCantidad();
-                                    }
+                                    carro.setDescuentos(totalDescuentos);
+                                    carro.setSubTotal(totalSubTotal);
+                                    carro.setRebajas(totalRebajas);
+                                    carro.setTotalDescuentos(totalDescuentos + totalRebajas);
+                                    carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
+
+                                    repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
+                                        @Override
+                                        public void onCallBackSuccess(String result) {
+                                            callBackResultProcess.onCallBackSuccess(result);
+                                        }
+
+                                        @Override
+                                        public void onCallBackFail(String msjError) {
+                                            callBackResultProcess.onCallBackFail(msjError);
+                                        }
+                                    });
+                                    break;
                                 }
-                                carro.setDescuentos(totalDescuentos);
-                                carro.setSubTotal(totalSubTotal);
-                                carro.setRebajas(totalRebajas);
-                                carro.setTotalDescuentos(totalDescuentos + totalRebajas);
-                                carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
-
-                                repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
-                                    @Override
-                                    public void onCallBackSuccess(String result) {
-                                        callBackResultProcess.onCallBackSuccess(result);
-                                    }
-
-                                    @Override
-                                    public void onCallBackFail(String msjError) {
-                                        callBackResultProcess.onCallBackFail(msjError);
-                                    }
-                                });
-                                break;
                             }
                         }
                     }
@@ -335,16 +349,22 @@ public class CarroCompraService {
         }
         else //Despues de eliminar
         {
+            Log.i("updateCarroCompras","debug 1 init, idCliente: " + idCliente);
             repoDB.getCarroComprasByCliente(idCliente, new IGetSingleObject<CarroComprasModel>() {
                 @Override
                 public void onCallBackSuccess(CarroComprasModel carro) {
                     if (carro != null)
                     {
+                        Log.i("updateCarroCompras","debug 2 carro not null");
+                        Log.i("updateCarroCompras","debug 3 count items: " + carro.getItems().size());
                         Double totalDescuentos = 0D, totalSubTotal = 0D, totalRebajas = 0D;
                         for (ItemCarroCompraModel i: carro.getItems()) {
-                            totalDescuentos += i.getDescuento() * i.getCantidad();
-                            totalSubTotal += i.getSubTotal();
-                            totalRebajas += i.getRebaja() * i.getCantidad();
+                            if (i != null)
+                            {
+                                totalDescuentos += i.getDescuento() * i.getCantidad();
+                                totalSubTotal += i.getSubTotal();
+                                totalRebajas += i.getRebaja() * i.getCantidad();
+                            }
                         }
                         carro.setDescuentos(totalDescuentos);
                         carro.setSubTotal(totalSubTotal);
