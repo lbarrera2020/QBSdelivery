@@ -155,23 +155,53 @@ public class CarroComprasFireBaseAdapter  extends FirebaseRecyclerAdapter<ItemCa
                         {
 
                             //Mandar a llamar rutina que verifica si eliminar  el carrito, si es el caso no seguir con la actualizacion...
-
-                            //Toast.makeText(context,"Item removido con exito", Toast.LENGTH_LONG).show();
-                            //Actualizar los totales del carro
-                            service.updateCarroCompras(model.getIdCliente(), "", 0, new IStringResultProcess() {
+                            repoDB.getCarroComprasByCliente(model.getIdCliente(), new IGetSingleObject<CarroComprasModel>() {
                                 @Override
-                                public void onCallBackSuccess(String msjOK) {
-                                    if (!"OK".equals(msjOK))
+                                public void onCallBackSuccess(CarroComprasModel car) {
+                                    if (car != null)
                                     {
-                                        Toast.makeText(context,msjOK, Toast.LENGTH_LONG).show();
-                                    }
-                                }
+                                        if (car.getItems()!= null && !car.getItems().isEmpty())
+                                        {
+                                            //Actualizar los totales del carro
+                                            service.updateCarroCompras(model.getIdCliente(), "", 0, new IStringResultProcess() {
+                                                @Override
+                                                public void onCallBackSuccess(String msjOK) {
+                                                    if (!"OK".equals(msjOK))
+                                                    {
+                                                        Toast.makeText(context,msjOK, Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
 
+                                                @Override
+                                                public void onCallBackFail(String msjError) {
+                                                    Toast.makeText(context,"Error inesperado al actualizar carro compras, " + msjError, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                        else //Eliminar el carro de compras dado que ya no hay items..
+                                        {
+                                            repoDB.eliminmarCarroCompras(model.getIdCliente(), new IStringResultProcess() {
+                                                @Override
+                                                public void onCallBackSuccess(String result) {
+                                                    Toast.makeText(context,result, Toast.LENGTH_LONG).show();
+                                                }
+
+                                                @Override
+                                                public void onCallBackFail(String msjError) {
+                                                    Toast.makeText(context,"Error inesperado al eliminar carro compras, " + msjError, Toast.LENGTH_LONG).show();
+                                                }
+                                            });
+                                        }
+                                    }
+                                    else
+                                        Toast.makeText(context,"Error al obtener carro compras", Toast.LENGTH_LONG).show();
+                                }
                                 @Override
                                 public void onCallBackFail(String msjError) {
-                                    Toast.makeText(context,"Error inesperado al actualizar carro compras, " + msjError, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context,"Error inesperado al obtener carro compras, " + msjError, Toast.LENGTH_LONG).show();
                                 }
                             });
+
                         }
                         else
                             Toast.makeText(context,result, Toast.LENGTH_LONG).show();
