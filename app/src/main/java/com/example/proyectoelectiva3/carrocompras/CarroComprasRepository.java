@@ -446,12 +446,12 @@ public class CarroComprasRepository {
         Log.i("updateTotales","Fin");
     }
 
-    public void updateItemCarroCompra(final String idCliente, Map<String, Object> mapToUpdate, final IStringResultProcess callBackResultProcess)
+    public void updateItemCarroCompra( String idCliente,String keyItem, Map<String, Object> mapToUpdate, final IStringResultProcess callBackResultProcess)
     {
         Log.i("updateItem","Inicio");
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).updateChildren(mapToUpdate)
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).child(NOMBRE_ITEMS_CARRO_COMPRAS).child(keyItem).updateChildren(mapToUpdate)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {

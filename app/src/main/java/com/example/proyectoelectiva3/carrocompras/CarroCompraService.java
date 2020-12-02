@@ -306,7 +306,7 @@ public class CarroCompraService {
 
     }
 
-    public void updateCarroCompras(String idCliente, final String idItem, final int newCantidad, final IStringResultProcess callBackResultProcess)
+    public void updateCarroCompras(final String idCliente, final String idItem, final int newCantidad, final IStringResultProcess callBackResultProcess)
     {
         repoDB = new CarroComprasRepository();
         if (!TextUtils.isEmpty(idItem))
@@ -353,6 +353,7 @@ public class CarroCompraService {
                                     carro.setTotalDescuentos(totalDescuentos + totalRebajas);
                                     carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
 
+                                    /*
                                     repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
                                         @Override
                                         public void onCallBackSuccess(String result) {
@@ -364,6 +365,45 @@ public class CarroCompraService {
                                             callBackResultProcess.onCallBackFail(msjError);
                                         }
                                     });
+                                    */
+                                    final ItemCarroCompraModel itemAux = i;
+
+                                    repoDB.updateTotalesCarroCompra(idCliente, getMapUpdateTotales(carro), new IStringResultProcess() {
+                                        @Override
+                                        public void onCallBackSuccess(String result) {
+                                            repoDB.getKeyItemCarroCompra(itemAux, new IStringResultProcess() {
+                                                @Override
+                                                public void onCallBackSuccess(String keyItemCarro) {
+                                                    if (keyItemCarro != null && !keyItemCarro.isEmpty())
+                                                    {
+                                                        repoDB.updateItemCarroCompra(idCliente, keyItemCarro, getMapUpdateItem(itemAux), new IStringResultProcess() {
+                                                            @Override
+                                                            public void onCallBackSuccess(String resultIetm) {
+                                                                callBackResultProcess.onCallBackSuccess(resultIetm);
+                                                            }
+
+                                                            @Override
+                                                            public void onCallBackFail(String msjError) {
+                                                                callBackResultProcess.onCallBackFail(msjError);
+                                                            }
+                                                        });
+                                                    }
+                                                    else
+                                                        callBackResultProcess.onCallBackFail("Error");
+                                                }
+
+                                                @Override
+                                                public void onCallBackFail(String msjError) {
+                                                    callBackResultProcess.onCallBackFail(msjError);
+                                                }
+                                            });
+                                        }
+                                        @Override
+                                        public void onCallBackFail(String msjError2) {
+                                            callBackResultProcess.onCallBackFail(msjError2);
+                                        }
+                                    });
+
                                     break;
                                 }
                             }
@@ -440,8 +480,7 @@ public class CarroCompraService {
     {
         Map<String, Object> map = new  HashMap<String,Object>();
 
-        map.put("descuentos",item.getDescuento());
-        map.put("rebajas",item.getRebaja());
+        map.put("cantidad",item.getCantidad());
         map.put("subTotal",item.getSubTotal());
         map.put("total",item.getTotal());
 
