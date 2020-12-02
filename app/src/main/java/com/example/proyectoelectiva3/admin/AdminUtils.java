@@ -3,6 +3,7 @@ package com.example.proyectoelectiva3.admin;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -76,6 +77,23 @@ public class AdminUtils {
     {
         DecimalFormat df2 = new DecimalFormat("#.##");
         return df2.format(value);
+    }
+
+    public static Double getDoubleValueFromStr(String value)
+    {
+        if (value != null && !value.isEmpty())
+        {
+            Double aux = 0D;
+            try {
+                aux = Double.parseDouble(value.trim());
+            }
+            catch (Exception ex)
+            {
+                Log.e("AdminUtils","Error en getDobValueFromStr", ex);
+            }
+            return aux;
+        }
+        return 0D;
     }
 
 

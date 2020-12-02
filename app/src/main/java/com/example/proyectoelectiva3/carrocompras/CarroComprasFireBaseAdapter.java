@@ -153,6 +153,9 @@ public class CarroComprasFireBaseAdapter  extends FirebaseRecyclerAdapter<ItemCa
                     public void onCallBackSuccess(String result) {
                         if ("OK".equals(result))
                         {
+
+                            //Mandar a llamar rutina que verifica si eliminar  el carrito, si es el caso no seguir con la actualizacion...
+
                             //Toast.makeText(context,"Item removido con exito", Toast.LENGTH_LONG).show();
                             //Actualizar los totales del carro
                             service.updateCarroCompras(model.getIdCliente(), "", 0, new IStringResultProcess() {

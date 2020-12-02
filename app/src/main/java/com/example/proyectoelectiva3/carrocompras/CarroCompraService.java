@@ -2,12 +2,15 @@ package com.example.proyectoelectiva3.carrocompras;
 
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.articulosEntity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -46,7 +49,7 @@ public class CarroCompraService {
         repoDB.getCarroComprasByCliente(idCliente, new IGetSingleObject<CarroComprasModel>() {
             @Override
             public void onCallBackSuccess(final CarroComprasModel carro) {
-git
+
                 if (carro != null) //Se va agregar un nuevo producto
                 {
                     if (!existeProductoEnCarro(carro,idProducto)) //No poder ingresar el mismo producto en el carro...
@@ -109,18 +112,29 @@ git
                                     carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
 
                                     //Guardar los datos
-                                    //callBackResultProcess.onCallBackSuccess(repoDB.modificarCarroCompras(carro));
-                                    repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
+
+                                    final ItemCarroCompraModel itemAux = item;
+                                    repoDB.updateTotalesCarroCompra(idCliente, getMapUpdateTotales(carro), new IStringResultProcess() {
                                         @Override
                                         public void onCallBackSuccess(String result) {
-                                            callBackResultProcess.onCallBackSuccess(result);
-                                        }
+                                            repoDB.insertItemCarroCompra(itemAux, new IStringResultProcess() {
+                                                @Override
+                                                public void onCallBackSuccess(String resultItem) {
+                                                    callBackResultProcess.onCallBackSuccess(resultItem);
+                                                }
 
+                                                @Override
+                                                public void onCallBackFail(String msjError2) {
+                                                    callBackResultProcess.onCallBackFail(msjError2);
+                                                }
+                                            });
+                                        }
                                         @Override
-                                        public void onCallBackFail(String msjError) {
-                                            callBackResultProcess.onCallBackFail(msjError);
+                                        public void onCallBackFail(String msjError2) {
+                                            callBackResultProcess.onCallBackFail(msjError2);
                                         }
                                     });
+
 
                                 }
                                 else
@@ -152,7 +166,6 @@ git
                         public void onCallBackSuccess(articulosEntity prod) {
 
                             CarroComprasModel car = new CarroComprasModel();
-                            List<ItemCarroCompraModel> listItems = new ArrayList<>();
                             ItemCarroCompraModel item = new ItemCarroCompraModel();
 
                             car.setIdCart(UUID.randomUUID().toString());
@@ -191,9 +204,7 @@ git
                                 else
                                     item.setTotal(0D);
 
-                                listItems.add(item);
-
-                                car.setItems(listItems);
+                                car.setItems(null);
 
                                 //Totales del carrito de compras
                                 car.setImpuestos(0D);
@@ -204,18 +215,37 @@ git
                                 car.setTotal(item.getTotal());
 
                                 //Guardar los datos
-                                //callBackResultProcess.onCallBackSuccess(repoDB.crearCarroCompras(car));
+
+                                final ItemCarroCompraModel itemAux = item;
+
                                 repoDB.crearCarroCompras(car, new IStringResultProcess() {
                                     @Override
                                     public void onCallBackSuccess(String result) {
-                                        callBackResultProcess.onCallBackSuccess(result);
-                                    }
+                                        if (result != null && !result.isEmpty() && !"OK".equals(result) && !"ERR".equals(result) && !"DUP".equals(result))
+                                        {
+                                            repoDB.insertItemCarroCompra(itemAux, new IStringResultProcess() {
+                                                @Override
+                                                public void onCallBackSuccess(String resultItem) {
+                                                    callBackResultProcess.onCallBackSuccess(resultItem);
+                                                }
 
+                                                @Override
+                                                public void onCallBackFail(String msjError2) {
+                                                    callBackResultProcess.onCallBackFail(msjError2);
+                                                }
+                                            });
+                                        }
+                                        else
+                                        {
+                                            callBackResultProcess.onCallBackSuccess(result);
+                                        }
+                                    }
                                     @Override
                                     public void onCallBackFail(String msjError) {
                                         callBackResultProcess.onCallBackFail(msjError);
                                     }
                                 });
+
                             }
                             else
                             {
@@ -372,18 +402,16 @@ git
                         carro.setTotalDescuentos(totalDescuentos + totalRebajas);
                         carro.setTotal(totalSubTotal-totalDescuentos-totalRebajas);
 
-                        repoDB.modificarCarroCompras(carro, new IStringResultProcess() {
+                        repoDB.updateTotalesCarroCompra(carro.getIdCliente(), getMapUpdateTotales(carro), new IStringResultProcess() {
                             @Override
                             public void onCallBackSuccess(String result) {
                                 callBackResultProcess.onCallBackSuccess(result);
                             }
-
                             @Override
-                            public void onCallBackFail(String msjError) {
-                                callBackResultProcess.onCallBackFail(msjError);
+                            public void onCallBackFail(String msjError2) {
+                                callBackResultProcess.onCallBackFail(msjError2);
                             }
                         });
-
                     }
                 }
 
@@ -393,5 +421,30 @@ git
                 }
             });
         }
+    }
+
+    private Map<String, Object> getMapUpdateTotales(CarroComprasModel carro)
+    {
+        Map<String, Object> map = new  HashMap<String,Object>();
+
+        map.put("descuentos",carro.getDescuentos());
+        map.put("rebajas",carro.getRebajas());
+        map.put("subTotal",carro.getSubTotal());
+        map.put("totalDescuentos",carro.getTotalDescuentos());
+        map.put("total",carro.getTotal());
+
+        return map;
+    }
+
+    private Map<String, Object> getMapUpdateItem(ItemCarroCompraModel item)
+    {
+        Map<String, Object> map = new  HashMap<String,Object>();
+
+        map.put("descuentos",item.getDescuento());
+        map.put("rebajas",item.getRebaja());
+        map.put("subTotal",item.getSubTotal());
+        map.put("total",item.getTotal());
+
+        return map;
     }
 }
