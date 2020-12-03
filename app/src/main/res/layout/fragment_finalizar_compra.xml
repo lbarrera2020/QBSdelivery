@@ -22,20 +22,25 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/btnAbrirCalendario"
-            android:text="Mostrar calendario"
-            android:textSize="12sp"
+        <EditText
+            android:id="@+id/edtFechaEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
             android:gravity="center"
-            android:padding="15dp"
-            android:layout_gravity="center"
-            android:textColor="@android:color/white"
-            android:background="#D30206F6"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </Button>
+            android:layout_marginTop="7dp"
+            android:hint="Seleccione Fecha de Entrega">
+        </EditText>
 
+        <EditText
+            android:id="@+id/edtHoraEntrega"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:gravity="center"
+            android:layout_marginTop="7dp"
+            android:hint="Seleccione Hora de Entrega">
+        </EditText>
 
         <TextView
             android:layout_width="match_parent"
