@@ -26,6 +26,8 @@ public class CarroComprasRepository {
     private static final String NOMBRE_DOCUMENTO_CARRO = "carroComprasTmp";
     private static final String NOMBRE_DOCUMENTO_PRODUCTOS = "Productos";
     private static final String NOMBRE_ITEMS_CARRO_COMPRAS = "items";
+    private static final String NOMBRE_COLLECTION_USERS = "Usuarios";
+    private static final String NOMBRE_DIRECCIONES_USERS = "direcciones";
 
 
     private void initDB()
@@ -472,5 +474,53 @@ public class CarroComprasRepository {
             callBackResultProcess.onCallBackFail("Error inesperado al tratar de update Item del carro");
         }
         Log.i("updateItem","Fin");
+    }
+
+    public void getInformationClient(final String idCliente, final IGetSingleObject<InformacionCliente> callBackGetClient)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NOMBRE_COLLECTION_USERS).child(idCliente).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    InformacionCliente client = null;
+
+                    if (snapshot.exists())
+                    {
+                        client = new InformacionCliente();
+                        client.setIdCliente(idCliente);
+                        client.setCorreo(snapshot.child("correo").getValue().toString().trim());
+                        client.setNombre(snapshot.child("nombre").getValue().toString().trim());
+
+                        List<DireccionesCliente> listAddress = new ArrayList<>();
+                        DireccionesCliente dire = null;
+                        for (DataSnapshot ad : snapshot.child(NOMBRE_DIRECCIONES_USERS).getChildren())
+                        {
+                            dire = new DireccionesCliente();
+                            dire.setKey(ad.getKey()); //Sea in UDDI o un indice entero
+                            dire.setDireccion(ad.child("direccion").getValue().toString().trim());
+                            //Pendiente si se agregan Departamento y cidudad...
+
+                            listAddress.add(dire);
+                        }
+                        client.setDirecciones(listAddress);
+                    }
+                    callBackGetClient.onCallBackSuccess(client);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callBackGetClient.onCallBackFail(error.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            Log.e("getInforClient","Error al buscar informacion del cliente", e);
+            callBackGetClient.onCallBackFail(e.getMessage());
+        }
     }
 }

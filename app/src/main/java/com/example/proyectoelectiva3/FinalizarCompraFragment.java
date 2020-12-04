@@ -22,7 +22,14 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.ProductoCategoriaDummy;
+import com.example.proyectoelectiva3.admin.articulosEntity;
+import com.example.proyectoelectiva3.carrocompras.CarroComprasRepository;
+import com.example.proyectoelectiva3.carrocompras.DireccionesCliente;
+import com.example.proyectoelectiva3.carrocompras.IGetSingleObject;
+import com.example.proyectoelectiva3.carrocompras.InformacionCliente;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -44,6 +51,9 @@ public class FinalizarCompraFragment extends Fragment {
     private Spinner spinerDireccion;
     private Button btnFinalizarCompra;
     private EditText fechaEntrega, horaEntrega;
+    private CarroComprasRepository repoDB;
+    private FirebaseAuth auntenticacion;
+    private InformacionCliente infoCliente;
 
     public FinalizarCompraFragment() {
         // Required empty public constructor
@@ -76,6 +86,8 @@ public class FinalizarCompraFragment extends Fragment {
         btnFinalizarCompra = fragment.findViewById(R.id.btnFinalizarCompra);
         fechaEntrega = fragment.findViewById(R.id.edtFechaEntrega);
         horaEntrega = fragment.findViewById(R.id.edtHoraEntrega);
+
+        auntenticacion = FirebaseAuth.getInstance();
 
         btnFinalizarCompra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +221,15 @@ public class FinalizarCompraFragment extends Fragment {
         {
             if (!TextUtils.isEmpty(horaEntrega.getText()))
             {
-                return true;
+                DireccionesCliente dire = (DireccionesCliente)spinerDireccion.getSelectedItem();
+                if (dire != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Debe indicar la dirección de envio" , Toast.LENGTH_LONG).show();
+                }
             }
             else
             {
@@ -227,19 +247,26 @@ public class FinalizarCompraFragment extends Fragment {
 
     private void cargarDatosSpinner()
     {
-        //Simulo que los obtuve de la DB
-        ProductoCategoriaDummy cat1 = new ProductoCategoriaDummy(UUID.randomUUID().toString(), "Casa|Senda 9 block 7 casa #23 Santa Tecla");
-        ProductoCategoriaDummy cat2 = new ProductoCategoriaDummy(UUID.randomUUID().toString(), "Trabajo| Avenida Olimpica calle Arturo Araujo casa #101 Col Escalon");
+        repoDB = new CarroComprasRepository();
 
-        List<ProductoCategoriaDummy> spinArray = new ArrayList<>();
-        spinArray.add(cat1);
-        spinArray.add(cat2);
+        //get informacion del cliente..
+        repoDB.getInformationClient(auntenticacion.getCurrentUser().getUid() , new IGetSingleObject<InformacionCliente>() {
+            @Override
+            public void onCallBackSuccess(InformacionCliente c) {
+                if (c != null)
+                {
+                    infoCliente = c;
+                    ArrayAdapter<DireccionesCliente> adapter = new ArrayAdapter<DireccionesCliente>(getContext(), android.R.layout.simple_spinner_dropdown_item, c.getDirecciones());
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinerDireccion.setAdapter(adapter);
+                }
+            }
 
-        //ProductoCategoriaDummy objCat = (ProductoCategoriaDummy)spinerCat.getSelectedItem();
-
-        ArrayAdapter<ProductoCategoriaDummy> adapter = new ArrayAdapter<ProductoCategoriaDummy>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinerDireccion.setAdapter(adapter);
+            @Override
+            public void onCallBackFail(String msjError) {
+                Toast.makeText(getContext(), "Error al cargar direcciones" , Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
