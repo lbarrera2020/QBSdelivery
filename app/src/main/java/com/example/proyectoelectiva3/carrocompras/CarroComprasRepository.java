@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.proyectoelectiva3.FormasPago.FormasPagoEntity;
 import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.articulosEntity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -28,7 +29,8 @@ public class CarroComprasRepository {
     private static final String NOMBRE_ITEMS_CARRO_COMPRAS = "items";
     private static final String NOMBRE_COLLECTION_USERS = "Usuarios";
     private static final String NOMBRE_DIRECCIONES_USERS = "direcciones";
-
+    private static final String NAME_COLLECTION_PAYMENT_FORMS = "FormasPago";
+    private static final String NAME_COLLECTION_ORDERS = "Pedidos";
 
     private void initDB()
     {
@@ -521,6 +523,71 @@ public class CarroComprasRepository {
         {
             Log.e("getInforClient","Error al buscar informacion del cliente", e);
             callBackGetClient.onCallBackFail(e.getMessage());
+        }
+    }
+
+    public void getInformationPaymentForms(final IGetSingleObject<List<FormasPagoEntity>> callBackGetPaymentForm)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NAME_COLLECTION_PAYMENT_FORMS).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<FormasPagoEntity> listPayForm = new ArrayList<>();
+                    if (snapshot.exists())
+                    {
+                        FormasPagoEntity payForm = null;
+                        for (DataSnapshot listData: snapshot.getChildren())
+                        {
+                            payForm = new FormasPagoEntity();
+                            payForm.setId(listData.child("id").getValue().toString().trim());
+                            payForm.setNombre(listData.child("nombre").getValue().toString().trim());
+                            payForm.setDescripcion(listData.child("descripcion").getValue().toString().trim());
+                            payForm.setEstado(listData.child("estado").getValue().toString().trim());
+                            listPayForm.add(payForm);
+                        }
+                    }
+                    callBackGetPaymentForm.onCallBackSuccess(listPayForm);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callBackGetPaymentForm.onCallBackFail(error.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            Log.e("getInforClient","Error al cargar las formas de pago", e);
+            callBackGetPaymentForm.onCallBackFail(e.getMessage());
+        }
+    }
+
+    public void crearPedido(PedidoModel newPedido, final IStringResultProcess callBackResultProcess)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NAME_COLLECTION_ORDERS).child(newPedido.getId_pedido()).setValue(newPedido)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callBackResultProcess.onCallBackFail("ERR");
+                            Log.e("creaPedido","Error al tratar de crear nuevo pedido", e);
+                        }
+                    });
+        }
+        catch (Exception ex){
+            callBackResultProcess.onCallBackFail("ERR");
+            Log.e("creaPedido","Error creando pedido", ex);
         }
     }
 }
