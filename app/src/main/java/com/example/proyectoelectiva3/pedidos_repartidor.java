@@ -79,9 +79,12 @@ public class pedidos_repartidor extends AppCompatActivity {
         lvPedidos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
 
                 Intent i= new Intent(getApplicationContext(), pedidosDetalle.class);
+                PedidosEntity pedidos = arrayAdapterPedidos.getItem(position);
+                i.putExtra("idpedido",pedidos.getId_pedido());
+
                 startActivity(i);
                 finish();
 

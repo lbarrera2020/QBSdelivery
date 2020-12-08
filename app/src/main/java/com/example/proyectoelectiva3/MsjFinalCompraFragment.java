@@ -48,7 +48,7 @@ public class MsjFinalCompraFragment extends Fragment {
             dataCompra = (MsjFinalData)getArguments().getSerializable(ARG_PARAM1);
         }
 
-        //limpiarCarroCompras();
+        limpiarCarroCompras();
         enviarCorreoNotificacion();
     }
 
