@@ -22,7 +22,9 @@ public class EnvioCorreo {
     String correoAdmin,claveAdmin;
     Session session;
 
-    public void EnviarCorreo(String CuentaCorreo,String Nombre, String Asunto,String Contenido){
+
+    public boolean EnviarCorreo(String CuentaCorreo,String Nombre, String Asunto,String Contenido){
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -50,17 +52,16 @@ public class EnvioCorreo {
                 message.setSubject(Asunto);
                 message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(CuentaCorreo));
 
+                message.setContent(Contenido ,"text/html; charset=utf-8");
 
-                message.setContent(Contenido
-                        ,"text/html; charset=utf-8");
                 Transport.send(message);
-
+                return true;
             }
 
         }catch (Exception e ){
-            e.printStackTrace();
+                e.printStackTrace();
         }
-
+        return false;
     }
 
 }

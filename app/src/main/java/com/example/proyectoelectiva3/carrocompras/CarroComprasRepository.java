@@ -5,6 +5,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.proyectoelectiva3.FormasPago.FormasPagoEntity;
+import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.admin.articulosEntity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -14,12 +16,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 public class CarroComprasRepository {
 
     private FirebaseDatabase dbFireBase;
     private DatabaseReference dbRef;
     private static final String NOMBRE_DOCUMENTO_CARRO = "carroComprasTmp";
     private static final String NOMBRE_DOCUMENTO_PRODUCTOS = "Productos";
+    private static final String NOMBRE_ITEMS_CARRO_COMPRAS = "items";
+    private static final String NOMBRE_COLLECTION_USERS = "Usuarios";
+    private static final String NOMBRE_DIRECCIONES_USERS = "direcciones";
+    private static final String NAME_COLLECTION_PAYMENT_FORMS = "FormasPago";
+    private static final String NAME_COLLECTION_ORDERS = "Pedidos";
 
     private void initDB()
     {
@@ -33,7 +44,8 @@ public class CarroComprasRepository {
 
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            //dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).setValue(carro)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -61,7 +73,7 @@ public class CarroComprasRepository {
 
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).setValue(carro)
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).setValue(carro)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -86,7 +98,7 @@ public class CarroComprasRepository {
     {
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCart()).removeValue()
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(carro.getIdCliente()).removeValue()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -107,11 +119,11 @@ public class CarroComprasRepository {
         }
     }
 
-    public void eliminmarCarroCompras(String idCarro, final IStringResultProcess callBackResultProcess)
+    public void eliminmarCarroCompras(String idCliente, final IStringResultProcess callBackResultProcess)
     {
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCarro).removeValue()
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).removeValue()
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -194,19 +206,44 @@ public class CarroComprasRepository {
 
         try {
             initDB();
-            dbRef.child(NOMBRE_DOCUMENTO_CARRO).addListenerForSingleValueEvent(new ValueEventListener() {
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     CarroComprasModel car = null;
 
-                    for (DataSnapshot objSnapshot : snapshot.getChildren())
+                    if (snapshot.exists())
                     {
-                        CarroComprasModel carAux = objSnapshot.getValue(CarroComprasModel.class);
-                        if (carAux.getIdCliente().equals(idCliente))
+                        car = new CarroComprasModel();
+                        car.setIdCart(snapshot.child("idCart").getValue().toString().trim());
+                        car.setDescuentos(AdminUtils.getDoubleValueFromStr(snapshot.child("descuentos").getValue().toString()));
+                        car.setFechaCreacion(snapshot.child("fechaCreacion").getValue().toString().trim());
+                        car.setIdCliente(snapshot.child("idCliente").getValue().toString().trim());
+                        car.setImpuestos(AdminUtils.getDoubleValueFromStr(snapshot.child("impuestos").getValue().toString()));
+                        car.setRebajas(AdminUtils.getDoubleValueFromStr(snapshot.child("rebajas").getValue().toString()));
+                        car.setSubTotal(AdminUtils.getDoubleValueFromStr(snapshot.child("subTotal").getValue().toString()));
+                        car.setTotal(AdminUtils.getDoubleValueFromStr(snapshot.child("total").getValue().toString()));
+                        car.setTotalDescuentos(AdminUtils.getDoubleValueFromStr(snapshot.child("totalDescuentos").getValue().toString()));
+
+                        List<ItemCarroCompraModel> listItems = new ArrayList<>();
+                        ItemCarroCompraModel item = null;
+                        for (DataSnapshot items : snapshot.child(NOMBRE_ITEMS_CARRO_COMPRAS).getChildren())
                         {
-                            car = objSnapshot.getValue(CarroComprasModel.class);
-                            break;
+                            item = new ItemCarroCompraModel();
+                            item.setCantidad(Integer.parseInt(items.child("cantidad").getValue().toString().trim()));
+                            item.setDescuento(AdminUtils.getDoubleValueFromStr(items.child("descuento").getValue().toString()));
+                            item.setIdCarroCompras(items.child("idCarroCompras").getValue().toString().trim());
+                            item.setIdCliente(items.child("idCliente").getValue().toString().trim());
+                            item.setIdItem(items.child("idItem").getValue().toString().trim());
+                            item.setIdProducto(items.child("idProducto").getValue().toString().trim());
+                            item.setNombreImagen(items.child("nombreImagen").getValue().toString().trim());
+                            item.setNombreProducto(items.child("nombreProducto").getValue().toString().trim());
+                            item.setPrecio(AdminUtils.getDoubleValueFromStr(items.child("precio").getValue().toString()));
+                            item.setRebaja(AdminUtils.getDoubleValueFromStr(items.child("rebaja").getValue().toString()));
+                            item.setSubTotal(AdminUtils.getDoubleValueFromStr(items.child("subTotal").getValue().toString()));
+                            item.setTotal(AdminUtils.getDoubleValueFromStr(items.child("total").getValue().toString()));
+                            listItems.add(item);
                         }
+                        car.setItems(listItems);
                     }
                     callBackGetCarro.onCallBackSuccess(car);
 
@@ -291,5 +328,266 @@ public class CarroComprasRepository {
         }
     }
 
+    public void getKeyItemCarroCompra(final ItemCarroCompraModel itemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("getKeyItemCarroCompra","Inicio");
+        try {
+            initDB();
 
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(itemCarro.getIdCliente()).child(NOMBRE_ITEMS_CARRO_COMPRAS).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.i("getKeyItemCarroCompra","Ingresa en onDataChange");
+                    String result = "";
+                    for (DataSnapshot objSnapshot : snapshot.getChildren())
+                    {
+                        ItemCarroCompraModel itemAux = objSnapshot.getValue(ItemCarroCompraModel.class);
+                        if (itemAux.getIdItem().equals(itemCarro.getIdItem()))
+                        {
+                            result = objSnapshot.getKey();
+                            break;
+                        }
+                    }
+                    callBackResultProcess.onCallBackSuccess(result);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("getKeyItemCarroCompra","Error al tratar de obtener dato " + error.getMessage());
+                    callBackResultProcess.onCallBackFail("Error");
+                }
+            });
+
+        }
+        catch (Exception ex){
+            Log.e("getKeyItemCarroCompra","Error inesperado", ex);
+            callBackResultProcess.onCallBackFail("Error");
+        }
+        Log.i("getKeyItemCarroCompra","Fin");
+    }
+
+    public void eliminarItemCarroCompra(final ItemCarroCompraModel itemCarro, String keyItemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("eliminando","Inicio");
+        try {
+            initDB();
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(itemCarro.getIdCliente()).child(NOMBRE_ITEMS_CARRO_COMPRAS).child(keyItemCarro).removeValue()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("eliminando","Ingresa en onSuccess...");
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("eliminando","Error al tratar de eliminar Item  de carro compra", e);
+                            callBackResultProcess.onCallBackFail("Error al tratar de eliminar el item");
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Log.e("eliminando","Error eliminando Item de carro de compras", ex);
+            callBackResultProcess.onCallBackFail("Error inesperado al tratar de eliminar item del carro");
+        }
+        Log.i("eliminando","Fin");
+    }
+
+    public void insertItemCarroCompra(final ItemCarroCompraModel itemCarro, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("insertItem","Inicio");
+        try {
+            initDB();
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(itemCarro.getIdCliente()).child(NOMBRE_ITEMS_CARRO_COMPRAS).push().setValue(itemCarro)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("insertItem","Ingresa en onSuccess...");
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("insertItem","Error al tratar de insert Item  de carro compra", e);
+                            callBackResultProcess.onCallBackFail("Error al tratar de isnertar el item");
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Log.e("insertItem","Error insert Item de carro de compras", ex);
+            callBackResultProcess.onCallBackFail("Error inesperado al tratar de insert item del carro");
+        }
+        Log.i("insertItem","Fin");
+    }
+
+    public void updateTotalesCarroCompra(final String idCliente, Map<String, Object> mapToUpdate, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("updateTotales","Inicio");
+        try {
+            initDB();
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).updateChildren(mapToUpdate)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("updateTotales","Ingresa en onSuccess...");
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("updateTotales","Error al tratar de update Totales de carro compra", e);
+                            callBackResultProcess.onCallBackFail("Error al tratar de update Totales");
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Log.e("updateTotales","Error update Totales de carro de compras", ex);
+            callBackResultProcess.onCallBackFail("Error inesperado al tratar de update Totales  del carro");
+        }
+        Log.i("updateTotales","Fin");
+    }
+
+    public void updateItemCarroCompra( String idCliente,String keyItem, Map<String, Object> mapToUpdate, final IStringResultProcess callBackResultProcess)
+    {
+        Log.i("updateItem","Inicio");
+        try {
+            initDB();
+            dbRef.child(NOMBRE_DOCUMENTO_CARRO).child(idCliente).child(NOMBRE_ITEMS_CARRO_COMPRAS).child(keyItem).updateChildren(mapToUpdate)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.i("updateItem","Ingresa en onSuccess...");
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("updateItem","Error al tratar de update Item de carro compra", e);
+                            callBackResultProcess.onCallBackFail("Error al tratar de update Item");
+                        }
+                    });
+        }
+        catch (Exception ex){
+            Log.e("updateItem","Error update Item de carro de compras", ex);
+            callBackResultProcess.onCallBackFail("Error inesperado al tratar de update Item del carro");
+        }
+        Log.i("updateItem","Fin");
+    }
+
+    public void getInformationClient(final String idCliente, final IGetSingleObject<InformacionCliente> callBackGetClient)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NOMBRE_COLLECTION_USERS).child(idCliente).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    InformacionCliente client = null;
+
+                    if (snapshot.exists())
+                    {
+                        client = new InformacionCliente();
+                        client.setIdCliente(idCliente);
+                        client.setCorreo(snapshot.child("correo").getValue().toString().trim());
+                        client.setNombre(snapshot.child("nombre").getValue().toString().trim());
+
+                        List<DireccionesCliente> listAddress = new ArrayList<>();
+                        DireccionesCliente dire = null;
+                        for (DataSnapshot ad : snapshot.child(NOMBRE_DIRECCIONES_USERS).getChildren())
+                        {
+                            dire = new DireccionesCliente();
+                            dire.setKey(ad.getKey()); //Sea in UDDI o un indice entero
+                            dire.setDireccion(ad.child("direccion").getValue().toString().trim());
+                            //Pendiente si se agregan Departamento y cidudad...
+
+                            listAddress.add(dire);
+                        }
+                        client.setDirecciones(listAddress);
+                    }
+                    callBackGetClient.onCallBackSuccess(client);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callBackGetClient.onCallBackFail(error.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            Log.e("getInforClient","Error al buscar informacion del cliente", e);
+            callBackGetClient.onCallBackFail(e.getMessage());
+        }
+    }
+
+    public void getInformationPaymentForms(final IGetSingleObject<List<FormasPagoEntity>> callBackGetPaymentForm)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NAME_COLLECTION_PAYMENT_FORMS).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    List<FormasPagoEntity> listPayForm = new ArrayList<>();
+                    if (snapshot.exists())
+                    {
+                        FormasPagoEntity payForm = null;
+                        for (DataSnapshot listData: snapshot.getChildren())
+                        {
+                            payForm = new FormasPagoEntity();
+                            payForm.setId(listData.child("id").getValue().toString().trim());
+                            payForm.setNombre(listData.child("nombre").getValue().toString().trim());
+                            payForm.setDescripcion(listData.child("descripcion").getValue().toString().trim());
+                            payForm.setEstado(listData.child("estado").getValue().toString().trim());
+                            listPayForm.add(payForm);
+                        }
+                    }
+                    callBackGetPaymentForm.onCallBackSuccess(listPayForm);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    callBackGetPaymentForm.onCallBackFail(error.getMessage());
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            Log.e("getInforClient","Error al cargar las formas de pago", e);
+            callBackGetPaymentForm.onCallBackFail(e.getMessage());
+        }
+    }
+
+    public void crearPedido(PedidoModel newPedido, final IStringResultProcess callBackResultProcess)
+    {
+
+        try {
+            initDB();
+            dbRef.child(NAME_COLLECTION_ORDERS).child(newPedido.getId_pedido()).setValue(newPedido)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            callBackResultProcess.onCallBackSuccess("OK");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            callBackResultProcess.onCallBackFail("ERR");
+                            Log.e("creaPedido","Error al tratar de crear nuevo pedido", e);
+                        }
+                    });
+        }
+        catch (Exception ex){
+            callBackResultProcess.onCallBackFail("ERR");
+            Log.e("creaPedido","Error creando pedido", ex);
+        }
+    }
 }
