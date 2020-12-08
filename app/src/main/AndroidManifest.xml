@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".pedidos_repartidor"></activity>
+        <activity android:name=".pedidosDetalle"></activity>
+        <activity android:name=".pedidos_repartidor" />
         <activity android:name=".repartidorActivity" />
         <activity
             android:name=".date_time_picker_dialog"
