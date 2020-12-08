@@ -9,21 +9,12 @@
     tools:context=".MantDireccion"
     >
     <Spinner
-        android:id="@+id/txt_dep"
+        android:id="@+id/spinnerDep"
         android:ems="10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="12dp"
         />
-<!--    <EditText-->
-<!--        android:id="@+id/txt_dep"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:ems="10"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:hint="Departamento"-->
-<!--        android:paddingTop="12dp"-->
-<!--        />-->
     <EditText
         android:id="@+id/txt_mun"
         android:layout_width="match_parent"
@@ -50,6 +41,26 @@
         android:inputType="textPersonName"
         android:hint="Direccion"
         android:paddingTop="12dp"
+        />
+
+    <Button
+        android:id="@+id/btnContinuar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Continuar"
+        android:text="Continuar" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Lista de Direcciones"
+        />
+    <ListView
+        android:id="@+id/lv_datospersonas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         />
 
 </LinearLayout>

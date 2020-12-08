@@ -165,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     edtCorreo.setError("Dato requerido");
                 }
                 else {
+
                     Registrar();
                 }
 
@@ -227,15 +228,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void Registrar(){
+
         autenticacion.createUserWithEmailAndPassword(correo,contraseña).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()){
 
+                    //Log.i("STOP","Llega!!!");
 
 
-
-//                    id= autenticacion.getCurrentUser().getUid();
+                   //id= autenticacion.getCurrentUser().getUid();
                     id= UUID.randomUUID().toString();
 
                     Map<String, Object> map = new HashMap<>();
@@ -257,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                                 i.putExtra("email", correo);
                                 i.putExtra("uid", id);
 
-//                                envio.EnviarCorreo(correo,nombre);
+                                envio.EnviarCorreo(correo,nombre);
 
                                 startActivity(i);
                                 finish();

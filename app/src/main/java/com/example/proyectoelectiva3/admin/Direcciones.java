@@ -6,6 +6,9 @@ public class Direcciones {
     private String Ciudad;
     private String Direccion;
 
+    public Direcciones() {
+    }
+
     public String getDepartamento() {
         return Departamento;
     }
@@ -38,5 +41,8 @@ public class Direcciones {
         Direccion = direccion;
     }
 
-
+    @Override
+    public String toString() {
+        return Direccion;
+    }
 }

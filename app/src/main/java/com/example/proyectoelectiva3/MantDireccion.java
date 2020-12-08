@@ -1,12 +1,15 @@
 package com.example.proyectoelectiva3;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -14,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.proyectoelectiva3.admin.Departamento;
 import com.example.proyectoelectiva3.admin.Direcciones;
 import com.example.proyectoelectiva3.admin.Usuarios;
 import com.google.firebase.FirebaseApp;
@@ -24,71 +28,91 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MantDireccion extends AppCompatActivity {
-    private List<Usuarios> listPerson = new ArrayList<Usuarios>();
-    ArrayAdapter<Usuarios> arrayAdapterPersona;
+    private List<Direcciones> listDirec = new ArrayList<Direcciones>();
+    ArrayAdapter<Direcciones> arrayAdapterDirecciones;
 
     EditText mun, ciudad, direc;
     Spinner dep;
+    Intent intent = getIntent();
+    String id,depSelec;
+    ListView lisVP;
+    Button btnContinuar;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
-    Usuarios personaSelected;
+    Direcciones direccionSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mantdireccion);
-        dep = findViewById(R.id.txt_dep);
+        dep = findViewById(R.id.spinnerDep);
         mun = findViewById(R.id.txt_mun);
         ciudad = findViewById(R.id.txt_ciudad);
         direc = findViewById(R.id.txt_direc);
+        Bundle datos= getIntent().getExtras();
+        id= datos.getString("uid");
+        ciudad.setText(id);
+        lisVP = findViewById(R.id.lv_datospersonas);
+        btnContinuar = findViewById(R.id.btnContinuar);
 
-        String[] arraySpinner = new String[] { "1", "2", "3", "4", "5", "6", "7" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);
+        String[] arraySpinner = new String[] { "La Libertad", "San Salvador" };
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arraySpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); dep.setAdapter(adapter);
-
         inicialisarFirebase();
-//        listarDatos();
-//        lisVP.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                personaSelected = (Usuarios) parent.getItemAtPosition(position);
-//                nomP.setText(personaSelected.getNombre());
-//                passwP.setText(personaSelected.getContraseña());
-//                correoP.setText(personaSelected.getCorreo());
-//                rollP.setText(personaSelected.getRoll());
-//            }
-//        });
-    }
-//    private void listarDatos() {
-//        databaseReference.child("Usuarios").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                listPerson.clear();
-//                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
-//                    Usuarios p = objSnaptshot.getValue(Usuarios.class);
-//                    listPerson.add(p);
-//
-//                    arrayAdapterPersona = new ArrayAdapter<Usuarios>(MantUsuario.this, android.R.layout.simple_list_item_1, listPerson);
-//                    lisVP.setAdapter(arrayAdapterPersona);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+        listarDatos();
+        lisVP.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                direccionSelected = (Direcciones) parent.getItemAtPosition(position);
+                mun.setText(direccionSelected.getMunicipio());
+                ciudad.setText(direccionSelected.getCiudad());
+                direc.setText(direccionSelected.getDireccion());
+            }
+        });
+        dep.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                depSelec = parent.getItemAtPosition(position).toString();
+                Toast.makeText(getApplicationContext(),depSelec, Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+    private void listarDatos() {
+        databaseReference.child("Usuarios").child(id).child("direcciones").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listDirec.clear();
+                for (DataSnapshot objSnaptshot : dataSnapshot.getChildren()){
+                    Direcciones p = objSnaptshot.getValue(Direcciones.class);
+                    listDirec.add(p);
+
+                    arrayAdapterDirecciones = new ArrayAdapter<Direcciones>(MantDireccion.this, android.R.layout.simple_list_item_1, listDirec);
+                    lisVP.setAdapter(arrayAdapterDirecciones);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void inicialisarFirebase() {
         FirebaseApp.initializeApp(MantDireccion.this);
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -101,13 +125,13 @@ public class MantDireccion extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        String depa= "";
+        String depa= depSelec;
         String muni= mun.getText().toString();
         String ciuda= ciudad.getText().toString();
         String direcc= direc.getText().toString();
-        String id= getIntent().getExtras().getString("uid");
 
         switch (item.getItemId()){
             case R.id.icon_add: {
@@ -116,19 +140,12 @@ public class MantDireccion extends AppCompatActivity {
                 }else{
                     Usuarios p = new Usuarios();
                     Direcciones d = new Direcciones();
-                    List<Direcciones> lista = new ArrayList<>();
-                    d.setCiudad(depa);
-                    d.setCiudad(muni);
-                    d.setCiudad(ciuda);
-                    d.setDireccion(direcc);
-                    lista.add(d);
-//                    p.setUid(UUID.randomUUID().toString());
-//                    p.setNombre("Luis Barrera Prueba");
-//                    p.setContraseña("123");
-//                    p.setCorreo("barrera@gmail.com");
-//                    p.setRol("repartidor");
-                    p.setDirecciones(lista);
-                    databaseReference.child("Usuarios").child(id).setValue(p);
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put("Departamento",depa);
+                    result.put("Municipio",muni);
+                    result.put("Ciudad",ciuda);
+                    result.put("Direccion",direcc);
+                    databaseReference.child("Usuarios").child(id).child("direcciones").child(UUID.randomUUID().toString()).setValue(result);
                     Toast.makeText(getApplicationContext(), "Direccion Agregada", Toast.LENGTH_LONG).show();
                     limpiarCajas();
                 }
@@ -138,15 +155,11 @@ public class MantDireccion extends AppCompatActivity {
                 Usuarios p = new Usuarios();
                 Direcciones d = new Direcciones();
                 List<Direcciones> lista = new ArrayList<>();
-                p.setUid(personaSelected.getUid());
+//                p.setUid(direccionSelected.get());
                 d.setDepartamento("");
                 d.setMunicipio(mun.getText().toString().trim());
                 d.setCiudad(ciudad.getText().toString().trim());
                 d.setDireccion(direc.getText().toString().trim());
-//                p.setNombre(nomP.getText().toString().trim());
-//                p.setContraseña(passwP.getText().toString().trim());
-//                p.setCorreo(correoP.getText().toString().trim());
-//                p.setRoll(rollP.getText().toString().trim());
                 lista.add(d);
                 p.setDirecciones(lista);
                 databaseReference.child("Usuarios").child(p.getUid()).setValue(p);
@@ -156,7 +169,7 @@ public class MantDireccion extends AppCompatActivity {
             }
             case R.id.icon_delete: {
                 Usuarios p = new Usuarios();
-                p.setUid(personaSelected.getUid());
+//                p.setUid(personaSelected.getUid());
                 databaseReference.child("Usuarios").child(p.getUid()).removeValue();
                 Toast.makeText(this, "Borrar", Toast.LENGTH_LONG).show();
                 limpiarCajas();
@@ -168,7 +181,6 @@ public class MantDireccion extends AppCompatActivity {
     }
 
     private void limpiarCajas() {
-//        dep.setText("");
         mun.setText("");
         ciudad.setText("");
         direc.setText("");
@@ -179,5 +191,11 @@ public class MantDireccion extends AppCompatActivity {
         if (direcc.equals("")){
             direc.setError("Required");
         }
+    }
+
+    public void Continuar(View view) {
+        Intent i= new Intent(getApplicationContext(),principal_navigation.class);
+        startActivity(i);
+        finish();
     }
 }
