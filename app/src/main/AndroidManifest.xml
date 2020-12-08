@@ -15,7 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".date_time_picker_dialog" android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity android:name=".pedidosDetalle"></activity>
+        <activity android:name=".pedidos_repartidor" />
+        <activity android:name=".repartidorActivity" />
+        <activity
+            android:name=".date_time_picker_dialog"
+            android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".FormasPago.Detalle_formapago" />
         <activity android:name=".FormasPago.Formas_pago" />
         <activity
@@ -27,7 +32,7 @@
         <activity android:name=".admin.articulos" />
         <activity android:name=".admin.DetalleCategoria" />
         <activity android:name=".admin.DetalleArticulos" />
-        <activity android:name=".RvProductos"></activity>
+        <activity android:name=".RvProductos" />
         <activity android:name=".admin.Categorias" />
         <activity android:name=".RvCategorias" />
         <activity android:name=".Login" />

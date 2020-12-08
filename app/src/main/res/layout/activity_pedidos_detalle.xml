@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CarroComprasFragment">
+    tools:context=".pedidosDetalle">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -29,16 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </ImageView>
-        <TextView
-            android:fontFamily="monospace"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="#CF0303"
-            android:text="Carro de compras esta vacio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TextView>
+
     </LinearLayout>
 
     <LinearLayout

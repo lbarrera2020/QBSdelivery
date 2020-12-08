@@ -2,6 +2,7 @@ package com.example.proyectoelectiva3;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,11 +19,20 @@ import android.widget.Toast;
 
 import com.example.proyectoelectiva3.admin.AdminUtils;
 import com.example.proyectoelectiva3.carrocompras.CarroComprasAdapter;
+import com.example.proyectoelectiva3.carrocompras.CarroComprasFireBaseAdapter;
 import com.example.proyectoelectiva3.carrocompras.CarroComprasModel;
 import com.example.proyectoelectiva3.carrocompras.CarroComprasRepository;
 import com.example.proyectoelectiva3.carrocompras.IGetSingleObject;
 import com.example.proyectoelectiva3.carrocompras.ItemCarroCompraModel;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +56,9 @@ public class CarroComprasFragment extends Fragment {
     TextView tvFooterTotal, tvFooterSubTotal, tvFooterDescuentos;
     Button btnContinuar;
     String idCarroCompras;
+    private static final String NOMBRE_COLLECTION_CARRO_COMPRAS = "carroComprasTmp";
+    CarroComprasFireBaseAdapter adapterFireBase;
+    private static final String NOMBRE_ITEMS_CARRO_COMPRAS = "items";
 
     public CarroComprasFragment() {
         // Required empty public constructor
@@ -77,11 +90,7 @@ public class CarroComprasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*
-        principal_navigation mainActivity = (principal_navigation)getActivity();
-        int count = mainActivity.listData.size();
-        Toast.makeText(getContext(), "From CarritoFragment count: " + count, Toast.LENGTH_LONG).show();
-        */
+
         final ViewGroup carroFragment = (ViewGroup)inflater.inflate(R.layout.fragment_carro_compras, null);
 
         auntenticacion = FirebaseAuth.getInstance();
@@ -92,28 +101,9 @@ public class CarroComprasFragment extends Fragment {
         tvFooterDescuentos = carroFragment.findViewById(R.id.tvFooterCartDescuentos);
         tvFooterTotal = carroFragment.findViewById(R.id.tvFooterCartTotal);
         recyclerViewCarro = carroFragment.findViewById(R.id.recyclerCart);
-        btnContinuar = carroFragment.findViewById(R.id.btnCartFooterContinuar);
+        btnContinuar = carroFragment.findViewById(R.id.btnCartFooterSalir);
 
-        recyclerViewCarro.setHasFixedSize(true);
-
-        lManager = new LinearLayoutManager(getContext());
-        recyclerViewCarro.setLayoutManager(lManager);
-
-        if (MODO_PANTALLA_READ_ONLY.equals(modoPantalla))
-        {
-            adapter = new CarroComprasAdapter(listItems, getContext(), true);
-            btnContinuar.setText("Confirmar");
-        }
-        else
-        {
-            adapter = new CarroComprasAdapter(listItems, getContext(), false);
-            btnContinuar.setText("Continuar");
-        }
-
-        recyclerViewCarro.setAdapter(adapter);
-
-        cargarDatosCarroCompras();
-        setEmptyCartMsg();
+        cargarDatosCarroComprasAdapterFireBase();
 
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,60 +125,127 @@ public class CarroComprasFragment extends Fragment {
         return carroFragment;
     }
 
-    private void cargarDatosCarroCompras()
+    private void cargarDatosCarroComprasAdapterFireBase()
     {
-        Log.i("FragmentCart","Inicio");
-        repoDB = new CarroComprasRepository();
-        //Toast.makeText(getContext(), "En load cart " +auntenticacion.getCurrentUser().getUid(), Toast.LENGTH_LONG).show();
+        Log.i("AdapterFireBase","Inicio");
+        FirebaseDatabase database= FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference().child(NOMBRE_COLLECTION_CARRO_COMPRAS).child(auntenticacion.getCurrentUser().getUid());
+        DatabaseReference dbRefChild = dbRef.child(NOMBRE_ITEMS_CARRO_COMPRAS);
+        Query query = dbRefChild.limitToFirst(30);
 
-        repoDB.getCarroComprasByCliente(auntenticacion.getCurrentUser().getUid(), new IGetSingleObject<CarroComprasModel>() {
-            @Override
-            public void onCallBackSuccess(CarroComprasModel car) {
-                //Toast.makeText(getContext(), "En load cart debug2 " + car, Toast.LENGTH_LONG).show();
-                Log.i("FragmentCart","Ingreso en onCallBackSuccess");
-                listItems.clear();
-                if (car != null)
-                {
-                    Log.i("FragmentCart","Ingreso en onCallBackSuccess -> car Not Null");
-                    listItems.addAll(car.getItems());
-                    idCarroCompras = car.getIdCart();
-                    if (MODO_PANTALLA_READ_ONLY.equals(modoPantalla))
-                        adapter = new CarroComprasAdapter(listItems, getContext(), true);
-                    else
-                        adapter = new CarroComprasAdapter(listItems, getContext(), false);
-                    adapter.notifyDataSetChanged();
-                    setEmptyCartMsg();
+        FirebaseRecyclerOptions<ItemCarroCompraModel> options =
+                new FirebaseRecyclerOptions.Builder<ItemCarroCompraModel>()
+                    .setQuery(query, ItemCarroCompraModel.class)
+                    .setLifecycleOwner(this)
+                    .build();
 
-                    //Footer Data
-                    tvFooterSubTotal.setText("$" + AdminUtils.formatNumber2Decimal(car.getSubTotal()));
-                    tvFooterDescuentos.setText("$-" + AdminUtils.formatNumber2Decimal(car.getTotalDescuentos()));
-                    tvFooterTotal.setText("$" + AdminUtils.formatNumber2Decimal(car.getTotal()));
-                    Log.i("FragmentCart","Ingreso en onCallBackSuccess -> car Not Null Fin");
-                }
-            }
+        if (MODO_PANTALLA_READ_ONLY.equals(modoPantalla)) //Modo pantalla confirmacion
+        {
+            setAdapterFireBase(true, options, dbRef);
+        }
+        else
+        {
+            setAdapterFireBase(false, options, dbRef);
+        }
+        recyclerViewCarro.setHasFixedSize(true);
+        lManager = new LinearLayoutManager(getContext());
+        recyclerViewCarro.setLayoutManager(lManager);
+        recyclerViewCarro.setAdapter(adapterFireBase);
 
-            @Override
-            public void onCallBackFail(String msjError) {
-                Toast.makeText(getContext(), "Error al cargar Datos de carro de compras. " +msjError, Toast.LENGTH_LONG).show();
-                Log.e("CarroCompras", msjError);
-            }
-        });
-        Log.i("FragmentCart","Fin");
+        Log.i("AdapterFireBase","Fin");
+
     }
 
     private void setEmptyCartMsg()
     {
-        if (listItems.isEmpty())
-        {
-            containerEmptyCart.setVisibility(View.VISIBLE);
-            footerLinearLayout.setVisibility(View.GONE);
-            recyclerViewCarro.setVisibility(View.GONE);
-        }
-        else
+        //if (listItems.isEmpty())
+        if (adapterFireBase != null &&  adapterFireBase.getItemCount() > 0)
         {
             containerEmptyCart.setVisibility(View.GONE);
             footerLinearLayout.setVisibility(View.VISIBLE);
             recyclerViewCarro.setVisibility(View.VISIBLE);
         }
+        else
+        {
+            containerEmptyCart.setVisibility(View.VISIBLE);
+            footerLinearLayout.setVisibility(View.GONE);
+            recyclerViewCarro.setVisibility(View.GONE);
+        }
     }
+    private void setAdapterFireBase(boolean isReadOnly, FirebaseRecyclerOptions<ItemCarroCompraModel> options , final DatabaseReference dbRef)
+    {
+        Log.i("setAdapterFireBase","Inicio");
+
+        if (isReadOnly)
+        {
+            adapterFireBase = new CarroComprasFireBaseAdapter(options, true, getContext()){
+                @Override
+                public void onDataChanged() {
+
+                    super.onDataChanged();
+                    Log.i("setAdapterFireBase","Si ingreso en onDataChanged");
+                    cargarTotales(dbRef);
+                    setEmptyCartMsg();
+                }
+
+                @Override
+                public void onError(@NonNull DatabaseError error) {
+                    super.onError(error);
+                    Log.i("setAdapterFireBase","onCancelled");
+                    Toast.makeText(getContext(), "Error en setAdapterFireBase " +error.getMessage() , Toast.LENGTH_LONG).show();
+                }
+            };
+
+            btnContinuar.setText("Confirmar");
+        }
+        else
+        {
+            adapterFireBase = new CarroComprasFireBaseAdapter(options, false, getContext()){
+                @Override
+                public void onDataChanged() {
+                    super.onDataChanged();
+                    Log.i("setAdapterFireBase","Si ingreso en onDataChanged");
+                    cargarTotales(dbRef);
+                    setEmptyCartMsg();
+                }
+
+                @Override
+                public void onError(@NonNull DatabaseError error) {
+                    super.onError(error);
+                    Log.i("setAdapterFireBase","onCancelled");
+                    Toast.makeText(getContext(), "Error en setAdapterFireBase " +error.getMessage() , Toast.LENGTH_LONG).show();
+                }
+            };
+            btnContinuar.setText("Continuar");
+        }
+
+        Log.i("setAdapterFireBase","Fin");
+    }
+
+    private void cargarTotales(DatabaseReference dbRef)
+    {
+        Log.i("cargarTotales","Inicio");
+        dbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.i("cargarTotales","onDataChange");
+                if (snapshot.exists())
+                {
+                    Log.i("cargarTotales","Si existe carro compras");
+                    //Footer Data
+                    tvFooterSubTotal.setText("$" + AdminUtils.formatNumber2Decimal(Double.parseDouble( snapshot.child("subTotal").getValue().toString())));
+                    tvFooterDescuentos.setText("$-" + AdminUtils.formatNumber2Decimal( Double.parseDouble(snapshot.child("totalDescuentos").getValue().toString())));
+                    tvFooterTotal.setText("$" + AdminUtils.formatNumber2Decimal(Double.parseDouble(snapshot.child("total").getValue().toString())));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("cargarTotales","onCancelled");
+                Toast.makeText(getContext(), "Error al cargar Datos Footer " +error.getMessage() , Toast.LENGTH_LONG).show();
+            }
+        });
+        Log.i("cargarTotales","Fin");
+    }
+
 }

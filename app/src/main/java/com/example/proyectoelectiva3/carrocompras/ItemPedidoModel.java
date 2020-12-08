@@ -2,7 +2,7 @@ package com.example.proyectoelectiva3.carrocompras;
 
 import com.google.firebase.database.Exclude;
 
-public class ItemCarroCompraModel {
+public class ItemPedidoModel {
     private String idItem;
     private String idProducto;
     private Integer cantidad;
@@ -11,18 +11,13 @@ public class ItemCarroCompraModel {
     private Double rebaja;
     private Double subTotal;
     private Double total;
-    @Exclude
     private String nombreImagen;
-    @Exclude
     private String nombreProducto;
-    @Exclude
-    private String idCarroCompras;
-    private String idCliente;
+    private String idPedido;
 
+    public ItemPedidoModel() { }
 
-    public ItemCarroCompraModel(){}
-
-    public ItemCarroCompraModel(String idItem, String idProducto, Integer cantidad, Double precio, Double descuento, Double rebaja, Double subTotal, Double total, String img) {
+    public ItemPedidoModel(String idItem, String idProducto, Integer cantidad, Double precio, Double descuento, Double rebaja, Double subTotal, Double total, String nombreImagen, String nombreProducto, String idPedido) {
         this.idItem = idItem;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
@@ -31,7 +26,9 @@ public class ItemCarroCompraModel {
         this.rebaja = rebaja;
         this.subTotal = subTotal;
         this.total = total;
-        this.nombreImagen = img;
+        this.nombreImagen = nombreImagen;
+        this.nombreProducto = nombreProducto;
+        this.idPedido = idPedido;
     }
 
     public String getIdItem() {
@@ -114,19 +111,11 @@ public class ItemCarroCompraModel {
         this.nombreProducto = nombreProducto;
     }
 
-    public String getIdCarroCompras() {
-        return idCarroCompras;
+    public String getIdPedido() {
+        return idPedido;
     }
 
-    public void setIdCarroCompras(String idCarroCompras) {
-        this.idCarroCompras = idCarroCompras;
-    }
-
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
     }
 }

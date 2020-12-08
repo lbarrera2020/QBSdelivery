@@ -8,25 +8,64 @@
         android:id="@+id/containerMsjFinalCompra"
         android:orientation="vertical"
         android:layout_margin="8dp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:layout_margin="5dp"
             android:src="@drawable/icono"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </ImageView>
         <TextView
             android:fontFamily="monospace"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="18sp"
             android:textColor="#CF0303"
-            android:text="PEDIDO 1 REALIZADO SATISFACTORIAMENTE"
+            android:text="PEDIDO:"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextView>
+
+        <TextView
+            android:id="@+id/msjIdPedido"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#CF0303"
+            android:text="1sdfsdfsdf-sdfsdfdsfds-dfgfdgdfgdfg-dfgdfgdfgdfter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+        <TextView
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#CF0303"
+            android:text="REALIZADO SATISFACTORIAMENTE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_approval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ImageView>
+        <TextView
+            android:fontFamily="monospace"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:text="SU CONFIRMACION HA SIDO ENVIADA POR CORREO ELECTRONICO"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TextView>
+
     </LinearLayout>
 
 </FrameLayout>

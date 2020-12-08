@@ -184,9 +184,6 @@ public class ProductosAdapter extends
             }
         });
 
-
-
-
     }
 
 
