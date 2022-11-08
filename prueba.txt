@@ -1,0 +1,1523 @@
+<style>
+    .font-md {
+        font-size: 100%;
+        font-family: "Museo Sans 300"
+    }
+
+    .font-lg {
+        font-size: 110%;
+        font-family: "Museo Sans 300"
+    }
+
+    .font-weight-bold {
+        font-weight: 300 !important;
+    }
+
+    .map {
+        height: 200px;
+        width: 100%;
+    }
+
+    .hideme {
+        position: absolute;
+        left: -100000px;
+    }
+
+    h5 {
+        text-align: right;
+    }
+
+    .my-2 {
+        margin-top: 0 !important;
+    }
+
+    .alert-primary {
+        /* color: #04356f; */
+        background-color: #cde;
+        border-color: #b8cfe7;
+    }
+
+    .vl {
+        border-left: 1px solid green;
+        height: 1rem;
+    }
+
+    .propio {
+        text-transform: capitalize;
+        font-weight: bold;
+    }
+
+    .mayus {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+/* acordion */
+.accordion {
+            border-radius: 5px;
+            list-style-type: none;
+            border-top: 1px solid #cde;
+            /* border-left: 1px solid #cde;
+            border-right: 1px solid #cde; */
+            margin: 0.5rem 0 1rem 0;
+            padding-left: 0;
+            width: 100%;
+        }
+
+        .accordion-header {
+            border-radius: 5px;
+            background-color: #b8cfe7;
+            border-bottom: 1px solid #cde;
+            cursor: pointer;
+            min-height: 2rem;
+            line-height: 2rem;
+            padding: 0 1rem;
+        }
+
+            .accordion-header:after {
+                content: '\02795';
+                font-size: 0.6rem;
+                color: #777;
+                float: right;
+            }
+        
+            .accordion-header.active:after {
+                content: '\02796';
+            }
+
+        .accordion-body {
+            box-shadow: 1.1px 1.1px rgba(69, 71, 71, 0.774);
+            /* border-radius: 15px; */
+            border-radius: 0px 0px 15px 15px;
+            display: none;
+            padding: 1rem;
+            border-bottom: 1px solid #777;
+        }
+/* fin */
+        .sombra{
+            /* box-shadow: 10px 10px 15px 2px rgba(0,0,0,0.59); */
+            box-shadow: 1.1px 1.1px 1.1px 1.1px #67697172;
+            /* box-shadow: 5px 5px 7px 0px #000000; */
+            border-radius: 5px;
+        }
+        .fondo{
+            background: #E0E5F1;
+        }
+        .encabezado{
+            background: #f4f7fd;
+        }
+        .dimencion{
+            height: 14cm;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .dimencion::-webkit-scrollbar{
+            width: 7px;
+        }
+        .dimencion::-webkit-scrollbar-thumb{
+            background: #67697172;
+            border-radius: 5px;
+        }
+        #t_pagado {
+            border-radius: 5px;
+
+            /* text-shadow: 3px 4px 0px #1B2756; */
+            /* color: #1558E2; */
+            /* background: #cde; */
+
+            /* font-family: Georgia, serif; */
+            font-size: 100%;
+            font-family: "Museo Sans 300";
+            font-size: 13px;
+            /* letter-spacing: 2px; */
+            /* word-spacing: 2px; */
+            /* color: #1B2756; */
+            font-weight: 700;
+            /* text-decoration: underline rgb(68, 68, 68); */
+            font-style: normal;
+            font-variant: normal;
+            text-transform: none;
+            text-align:center;
+        }
+        #detalle { 
+            background: #cde;
+            background: -moz-linear-gradient(left, #cde 0%, #FAFAFA 50%, #cde 100%);
+            background: -webkit-linear-gradient(left, #cde 0%, #FAFAFA 50%, #cde 100%);
+            background: linear-gradient(to right, #cde 0%, #FAFAFA 50%, #cde 100%);
+            /* box-shadow: 5px 5px 7px 5px #000000; */
+            /* background: rgb(187, 232, 184); */
+            border-radius: 15px 15px 0px 0px;
+        }
+        .prod_detalle{
+            box-shadow: 1.1px 1.1px 1.1px 1.1px #67697172;
+            /* box-shadow: 5px 5px 7px 0px #000000; */
+            border-radius: 5px;
+        }
+        .inter{
+            line-height: 15px;
+        }
+        .docu{
+            line-height: 15px;
+        }
+        .sub_resumen{
+            font-weight: bold;
+            text-align: center;
+        }
+        /* Inicio nav */
+        .nav-pills .nav-link {
+              border-radius: .25rem;
+              background-color: #ffffff;
+              border: none;
+              
+            }
+            /* verticales */
+            .nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+                color:black;
+                background-color:#E0E5F1 ;
+                border: 1px solid black;
+                /* box-shadow: 1px 0px 1px 0px; */
+            }
+            /* .nav-link:focus, .nav-link:hover{
+                color:black;
+                border-color: black;
+                background-color: #E0E5F1;
+            } */
+            
+            
+            /* horizontal */
+            .nav-tabs .nav-item.show{
+                background-color:#E0E5F1 ;
+            }
+            .nav-tabs .nav-link{
+                background-color:#ffffff;
+                border: 1px solid #BFCDEE;
+            }
+            .nav-link:focus, .nav-link:hover {
+                color: black!important;
+                border: 1px solid #BFCDEE;
+            }
+            button:focus {
+                outline: none;
+                outline: 1px dotted;
+                /* outline: 5px auto -webkit-focus-ring-color; */
+            }
+            
+            .nav-tabs .nav-item.show .nav-link:hover, .nav-tabs .nav-link.active {
+                color: black;
+                background-color: #E0E5F1;
+                border-left: 1px solid #BFCDEE;
+                border-right: 1px solid #BFCDEE;
+                border-top: 1px solid #BFCDEE;
+                border-bottom: none;
+                box-shadow: 1px 0px 1px 0px;
+                /* color:black;
+                background-color:#f4f7fd ;
+                border:1px solid rgba(0, 0, 0, 0.448);
+                border-bottom: none;
+                box-shadow: 1px 0px 1px 0px; */
+            }
+            .nav-tabs {
+                border-bottom: 1px solid rgba(0, 0, 0, 0.448);
+            }
+            /* Fin nav */
+            /* Inicio detalles de estableciminetos */
+            .cont_est{
+                background-color: #E0E5F1;
+                padding-top: 10px;
+                padding-bottom: 1px;
+            }
+            .cont_titulo{
+                display: block;
+                float: left;
+                width: 15px;
+                padding-left: 5px;
+                padding-right: 100px;
+                font-weight: bold;
+                text-align: justify;
+            }
+            .cont_descrip{
+                text-align: justify;
+            }
+            /* Fin detalles de estableciminetos */
+</style>
+
+<!-- Modal para previsualización de PDF-->
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="max-width: 70%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">Visualizar documento</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="" id="pdfBody" style="width: 100%; height: 420px;"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link  active" id="solicitante-tab" data-toggle="tab" data-target="#solicitante" type="button" role="tab" aria-controls="solicitante" aria-selected="true">Solicitante</button>
+          <button class="nav-link " id="empresa-tab" data-toggle="tab" data-target="#empresa" type="button" role="tab" aria-controls="empresa" aria-selected="false">Empresa</button>
+          <button class="nav-link " id="documento-tab" data-toggle="tab" data-target="#documento_nav" type="button" role="tab" aria-controls="documento_nav" aria-selected="false">Anexos</button>
+          <button class="nav-link " id="est-tab" data-toggle="tab" data-target="#est" type="button" role="tab" aria-controls="est" aria-selected="false">Establecimiento</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active sombra fondo" id="solicitante" role="tabpanel" aria-labelledby="solicitante-tab">
+            <!-- inicio solicitante -->
+            <hr class="my-2">
+            <div class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Nombre:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="solicitante" class="badge font-md">
+                                @@nombre_completo
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Fecha de nacimiento:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="solicitante" class="badge font-md">
+                                @@wsdui->data[0]->fechNaci
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="sec_dui">
+                <div class="col-12">
+                    <span>
+                        Tipo de Documento / Número:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="documento_l" class="badge font-md, mayus">
+                                <b>DUI: @!rut</b>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_subir_archivo" class="badge font-md">
+
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_subir_archivo"></span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row pl-2" id="nj_representante">
+                <div class="col-12">
+                    <span>
+                        Nombre del representante legal , apoderado y/o administrador único:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md">
+                                @@representante_legal
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="j_dir_representante">
+                <div class="col-12">
+                    <span>
+                        Dirección de residencia del representante legal:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md">
+                                @@residencia_representante
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="nj_propietario">
+                <div class="col-12">
+                    <span>
+                        Nombre del propietario:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="j_solicitante" class="badge font-md">
+                                @@nombre_propietario
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="fnj_representante">
+                <div class="col-12">
+                    <span>
+                        Fecha de nacimineto del representante:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md">
+                                @@nacimiento_representante
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="fnj_propietario">
+                <div class="col-12">
+                    <span>
+                        Fecha de nacimineto del propietario:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md">
+                                @@nacimiento_protietario
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" id="jsec_dui">
+                <div class="col-12">
+                    <span>
+                        Tipo de Documento / Número:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="documento" class="badge font-md, mayus">
+                                <b>@@documento_representante : @@numero_identidad_representante</b>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_jsubir_archivo" class="badge font-md">
+
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_jsubir_archivo"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Tipo de persona:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="tipodepersona" class="badge font-md, mayus">
+                                @@tipo_persona
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pn_tipotramite" class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Calidad en la que actúa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="tipotramite" class="badge font-md, mayus">
+                                @@tramite_es
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="pj_tipotramite" class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Calidad en la que actúa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="tipotramite" class="badge font-md, mayus">
+                                @@tramite_es1
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="autorizacion_poder">
+                <div class="col-12">
+                    <span>
+                        Autorización Poder:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_poder" class="badge font-md">
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_poder"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="autorizacion_poder_pn">
+                <div class="col-12">
+                    <span>
+                        Autorización Poder:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_poder_pn" class="badge font-md">
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_poder_pn"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row pl-2" id="nrc_tributaria">
+                <div class="col-12">
+                    <span>
+                        Número de Identificación tributaria (NRC):
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="idnrc" class="badge font-md, mayus">
+                                @@nit_extranjero
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_nrc_?" class="badge font-md">
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_nrc_?"></span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <!-- fin solicitante -->
+        </div>
+        <div class="tab-pane fade sombra fondo" id="empresa" role="tabpanel" aria-labelledby="empresa-tab">
+            <!-- Inicio Empresa -->
+            <div class="row pl-2" id="pj_propietario">
+                <div class="col-12">
+                    <span>
+                        Nombre del propietario de la empresa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@denominacion_razon_social
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="ra_social">
+                <div class="col-12">
+                    <span>
+                        Nombre de la empresa, denominación y/o razón social:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@razon_social
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="d_ra_social">
+                <div class="col-12">
+                    <span>
+                        Dirección de la empresa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@direccion_empresa
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="tel_empresa">
+                <div class="col-12">
+                    <span>
+                        Teléfono de la empresa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@telefono_empresa
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="e_mail">
+                <div class="col-12">
+                    <span>
+                        Correo electrónico de la empresa:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@email_empresa
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="n_resolucion">
+                <div class="col-12">
+                    <span>
+                        Número de resolución de las advertencias sanitarias, imágenes y pictogramas:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span class="badge font-md, mayus">
+                                @@numero_de_resolucion
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2">
+                <div class="col-12">
+                    <span>
+                        Los activos son superiores a $12,000.00:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="activos" class="badge font-md, mayus">
+                                
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="nrc_contribuyente">
+                <div class="col-12">
+                    <span>
+                        Número de registro de contribuyente:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="idnrc" class="badge font-md, mayus">
+                                @@nrc_natural
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="s-p_nrc_doc" class="badge font-md">
+                            </span>
+                        </div>
+                        <div>
+                            <span id="s-doc_nrc_doc"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="nit_sociedad_j">
+                <div class="col-12">
+                    <span>
+                        Número de tarjeta tributaria de la sociedad (NIT):
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="nitsociedad" class="badge font-md, mayus">
+                                @@nit_juridico
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="pj_tipo_sociedad">
+                <div class="col-12">
+                    <span>
+                        Tipo de entidad:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="nitsociedad" class="badge font-md, mayus">
+                                @@tipo_entidad
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="p_bodega">
+                <div class="col-12">
+                    <span>
+                        Posee bodega:
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="com_bodega" class="badge font-md, mayus">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pl-2" id="razon_social_j">
+                <div class="col-12">
+                    <span>
+                        Nombre o denominación social (razon_social):
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="razonsocial" class="badge font-md, mayus">
+                                @@nombre_o_denominacion_social
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fin Empresa -->
+        </div>
+        <div class="tab-pane fade" id="documento_nav" role="tabpanel" aria-labelledby="documento-tab">
+            <!-- Inicio Documentación -->
+            <div class="sombra fondo">
+            <div id="pn_autorizacion" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_autorizacion" class="badge font-md">
+                            Autorización de advertencias sanitarias, imágenes y pictogramas
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_autorizacion"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pnmatricula" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_matricula" class="badge font-md">
+                            Matrícula de empresa
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_matricula"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pjmatricula" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_matricula_pj" class="badge font-md">
+                            Matrícula de empresa
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_matricula_pj"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pn_permiso_sanitario" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_permiso_sanitario" class="badge font-md">
+                            Permiso sanitario de instalación y funcionamiento del establecimiento por el MINSAL
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_permiso_sanitario"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pj_sociedad_nrc" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_sociedad_nrc" class="badge font-md">
+                            Tarjeta de identificación tributaria de la sociedad (NRC)
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_sociedad_nrc"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pj_tarjeta_tributaria" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_tarjeta_tributaria" class="badge font-md">
+                            Tarjeta Tributaria de sociedad(NIT)
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_tarjeta_tributaria"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pn_arrendamiento" class="container mb-1">
+                <!-- <i class="docu"></i> -->
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_arrendamiento" class="badge font-md">
+                            Contrato de arrendamiento y permiso de instalación
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_arrendamiento"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pn_arrendamiento_pj" class="container mb-1">
+                <!-- <i class="docu"></i> -->
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_arrendamiento" class="badge font-md">
+                            Contrato de arrendamiento y permiso de instalación
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_arrendamiento_pj"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pj_escritura_publica" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_escritura_publica" class="badge font-md">
+                            Resolución de permiso de instalación y funcionamiento de la bodega
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_escritura_publica"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="pj_escritura_publica_j" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_escritura_publica" class="badge font-md">
+                            Testimonio de escritura pública de constitución o modificación
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_escritura_publica_j"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div id="pj_nrc_sociedad" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_jnrc_sociedad" class="badge font-md">
+                            Número de registro de contribuyente de la sociedad (NRC)
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_jnrc_sociedad"></span>
+                    </div>
+                </div>
+            </div> -->
+            <div id="pj_acreditacion" class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div>
+                        <span id="s-p_doc_acreditacion" class="badge font-md">
+                            Acreditación de personería jurídica del representante legal, apoderado y/o administrador único
+                        </span>
+                    </div>
+                    <div>
+                        <span id="s-doc_acreditacion"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="t_pagado_linea" class="ml-1"></div>
+            <div class="container mb-1">
+                <div class="row justify-content-between px-3">
+                    <div id="t_pagado" class="ml-1"></div>
+                </div>
+            </div>
+            </div>
+            <!-- Fin Documentación -->
+        </div>
+        <div class="tab-pane fade" id="est" role="tabpanel" aria-labelledby="est-tab">
+    <!-- nav del establecimiento -->
+    <br>
+            <div class="row pl-2">
+                <div class="col-3 sombra dimencion">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    </div>
+                </div>
+                <div class="col-9 sombra dimencion">
+                    <!-- <div class="cont_est sombra">
+                        <div clas="cont_row">
+                            <div class="cont_titulo"><p>Tipo:</p></div>
+                            <div class="cont_descrip"><p>Tienda asd as das dasdasdasd asdasdsadasdsadasdasdasd asdasdasdasdsadasd as das dsadasdasd asd as d asd asd asd as d sd sada sd asd asd as d</p></div>
+                        </div>
+                        <div clas="cont_row">
+                            <div class="cont_titulo"><p>Nombreasdhgasjgdjasdjhas:</p></div>
+                            <div class="cont_descrip"><p>Tienda</p></div>
+                        </div>
+                        <div clas="cont_row">
+                            <div class="cont_titulo"><p>Region:</p></div>
+                            <div class="cont_descrip"><p>OCCIDENTAL</p></div>
+                        </div>
+                    </div> -->
+                    <div class="tab-content" id="v-pills-tabContent"></div>
+                </div>
+    <!-- fin nav estable -->
+        </div>
+      </div> 
+    <!-- fin nav menu -->
+    </div> 
+</div>
+
+<script>
+    /*Script de revision*/
+    // var documentos = new Object;
+    // documentos["doc_per_san0a"]="@@permiso_sanitario1";
+    $(document).ready(function () {
+        var documentos = new Object;
+        // a="@@recibo_pagado"+1;
+        // a.toString();
+        // documentos["doc_com_pago0"]=a;
+        var documentos = {
+            // "doc_subir_archivo": "@@subir_documento_identidad",
+            "doc_jsubir_archivo": "@@documento_de_identidad",
+            "doc_acreditacion": "@@personeria_juridica",
+            "doc_escritura_publica": "@@escritura_publica",
+            "doc_escritura_publica_j": "@@resolucion_permiso",
+            "doc_matricula": "@@matricula_natural",
+            "doc_matricula_pj": "@@matricula_juridica",
+            "doc_arrendamiento": "@@copia_contrato_arrendamiento",
+            "doc_arrendamiento_pj": "@@contrato_arrendamiento",
+            "doc_autorizacion": "@@copia_de_autorizacion",
+            "doc_permiso_sanitario": "@@permiso_sanitario_instalacion",
+            "doc_tarjeta_tributaria": "@@subir_tarjeta_tributaria",
+            "doc_sociedad_nrc": "@@sociedad_nrc_doc",
+            "doc_plinea": "@@pagar_aqui__Tablon",
+            // "doc_jnrc_sociedad": "@@nrc_sociedad",
+            "doc_poder": "@@subir_archivo",
+            "doc_poder_pn": "@@subir_archivo1",
+            "doc_nrc_doc": "@@subir_nrc_natural",
+            "doc_com_pago0": "@@recibo_pagado1",
+            "doc_com_pago1": '@@recibo_pagado2',
+            "doc_com_pago2": "@@recibo_pagado3",
+            "doc_com_pago3": "@@recibo_pagado4",
+            "doc_com_pago4": "@@recibo_pagado5",
+            'doc_com_pago5': '@@recibo_pagado6',
+            'doc_com_pago6': '@@recibo_pagado7',
+            'doc_com_pago7': '@@recibo_pagado8',
+            'doc_com_pago8': '@@recibo_pagado9',
+            'doc_com_pago9': '@@recibo_pagado10',
+            'doc_com_pago10': '@@recibo_pagado11',
+            'doc_com_pago11': '@@recibo_pagado12',
+            'doc_com_pago12': '@@recibo_pagado13',
+            'doc_com_pago13': '@@recibo_pagado14',
+            'doc_com_pago14': '@@recibo_pagado15',
+            'doc_com_pago15': '@@recibo_pagado16',
+            'doc_com_pago16': '@@recibo_pagado17',
+            'doc_com_pago17': '@@recibo_pagado18',
+            'doc_com_pago18': '@@recibo_pagado19',
+            'doc_com_pago19': '@@recibo_pagado20',
+            'doc_com_pago20': '@@recibo_pagado21',
+            'doc_com_pago21': '@@recibo_pagado22',
+            'doc_com_pago22': '@@recibo_pagado23',
+            'doc_com_pago23': '@@recibo_pagado24',
+            'doc_com_pago24': '@@recibo_pagado25',
+            'doc_com_pago25': '@@recibo_pagado26',
+            'doc_com_pago26': '@@recibo_pagado27',
+            'doc_com_pago27': '@@recibo_pagado28',
+            'doc_com_pago28': '@@recibo_pagado29',
+            'doc_com_pago29': '@@recibo_pagado30',
+            "doc_dec_jurada": ""
+        };
+
+        if ($("i:contains('edit')").length == 0)
+        {
+            //campos a ocultar los campos de los arreglos
+            //Establecimiento
+            var estable=$("[name='tabla_establecimiento_prueba']");
+            var id_estable_p=estable.parent()[0].children[0].attributes[1].nodeValue;
+            $("[data-id='"+id_estable_p+"']").hide();
+            
+            // Producto/presentaciones
+            var estable=$("[name='tabla_presentaciones']");
+            var id_estable_p=estable.parent()[0].children[0].attributes[1].nodeValue;
+            $("[data-id='"+id_estable_p+"']").hide();
+        }
+        // validaciones para mostrar o no
+        //tercero
+        
+        // if ("@@tramite_es" == "tercero") {
+        //     $("#autorizacion_poder").show();
+        // } else {
+        //     $("#autorizacion_poder").hide();
+        // }
+        //Tipo de documento != dui
+        if("@@tramite_es"=="tercero" && "@@documento_identidad"!="dui"){
+            $("#nrc_tributaria").show();
+        } else {
+            $("#nrc_tributaria").hide();
+        }
+        //campo que ya no se usan pendinetes de borrar
+        $("#fnj_propietario").hide();
+        $("#pj_tipo_sociedad").hide();
+        $("#razon_social_j").hide();
+        //tipo de persona nuevos criterios
+        if ("@@tipo_persona" == "juridica") {
+            //activos
+            if("@@activos_empresa"=="si_activos"){
+                $('#activos').append("''Si'', los activos de esta empresa son superiores al monto establecido");
+                $("#pjmatricula").show();
+            }else{
+                $('#activos').append("''No'', los activos de esta empresa son menores al monto establecido");
+                $("#pjmatricula").hide();
+            }
+            //b
+            //bodega
+            if("@@posee_bodega_juridica"=="si_j"){
+                $("#pn_arrendamiento").hide();
+                $("#pj_escritura_publica").hide();
+                $("#pn_arrendamiento_pj").show();
+                $("#pj_escritura_publica_j").show();
+                $('#com_bodega').append("''Si'', Esta empresa posee bodega");
+            } else {
+                $("#pn_arrendamiento").hide();
+                $("#pj_escritura_publica").hide();
+                $("#pn_arrendamiento_pj").hide();
+                $("#pj_escritura_publica_j").hide();
+                $('#com_bodega').append("''No'', Esta empresa no posee bodega");
+            }
+            $("#nrc_contribuyente").hide();
+            $("#pj_propietario").show();
+            $("#pn_tipotramite").hide();
+            $("#pj_tipotramite").show();
+            $("#ra_social").show();
+            $("#d_ra_social").show();
+            $("#tel_empresa").show();
+            $("#e_mail").show();
+            $("#pn_permiso_sanitario").hide();
+            $("#sec_dui").hide();
+            $("#sec_dui_t").hide();
+            $("#autorizacion_poder").show();
+            $("#autorizacion_poder_pn").hide();
+            if("@@tramite_es1" == "representante"){
+                $("#pj_acreditacion").show();
+            }else if("@@tramite_es1" == "apoderado_autorizado"){
+                $("#pj_acreditacion").hide();
+                
+            }
+        }else if("@@tipo_persona" == "natural"){
+            //activos
+            if("@@activos_empresa"=="si_activos"){
+                $('#activos').append("''Si'', los activos de esta empresa son superiores al monto establecido");
+                $("#pnmatricula").show();
+            }else{
+                $('#activos').append("''No'', los activos de esta empresa son menores al monto establecido");
+                $("#pnmatricula").hide();
+            }
+            //bodega
+            if("@@posee_bodega"=="si_b"){
+                $("#pn_arrendamiento").show();
+                $("#pj_escritura_publica").hide();
+                $("#pn_arrendamiento_pj").hide();
+                $("#pj_escritura_publica_j").hide();
+                $('#com_bodega').append("''Si'', Esta empresa posee bodega");
+            } else {
+                $("#pn_arrendamiento").hide();
+                $("#pn_arrendamiento_pj").hide();
+                $("#pj_escritura_publica").hide();
+                $("#pj_escritura_publica_j").hide();
+                $('#com_bodega').append("''No'', Esta empresa no posee bodega");
+            }
+            $("#pj_propietario").hide();
+            $("#nrc_contribuyente").show();
+            $("#pn_tipotramite").show();
+            $("#pj_tipotramite").hide();
+            $("#pj_acreditacion").hide();
+            $("#autorizacion_poder").hide();
+            $("#autorizacion_poder_pn").show();
+            $("#ra_social").hide();
+            $("#d_ra_social").hide();
+            $("#tel_empresa").hide();
+            $("#pn_permiso_sanitario").hide();
+            $("#e_mail").hide();
+            if("@@tramite_es" == "personal"){
+                $("#sec_dui").show();
+                $("#sec_dui_t").hide();
+            }else if("@@tramite_es" == "tercero"){
+                // $("#ra_social").show();
+                // $("#d_ra_social").show();
+                // $("#tel_empresa").show();
+                // $("#pn_permiso_sanitario").show();
+                // $("#e_mail").show();
+                $("#sec_dui").hide();
+                $("#sec_dui_t").show();
+                
+            }
+        }
+        //tipo de persona antiguos criterios
+        //tipo de persona
+        if ("@@tipo_persona" == "juridica") {
+            $("#nj_propietario").hide();
+            if("@@tramite_es"=="personal"){
+                $("#sec_dui").show();
+                $("#nrc_contribuyente").hide();
+                $("#nj_representante").show();
+                $("#fnj_representante").show();
+                $("#razon_social_j").hide();
+                $("#pn_permiso_sanitario").hide();
+                $("#pj_acreditacion").hide();
+            }else if ("@@tramite_es" == "tercero"){
+                // $("#autorizacion_poder").show();
+                $("#nj_representante").hide();
+                $("#fnj_representante").hide();
+                $("#pj_acreditacion").show();
+            }
+            $("#fnj_propietario").hide();
+            $("#nit_sociedad_j").show();
+            $("#pj_nrc_sociedad").show();
+            $("#nit_juridico").show();
+            // $("#pj_escritura_publica").show();
+            $("#jsec_dui").hide();//??
+            // $("#pj_acreditacion").show();
+            // $("#pnmatricula").hide();
+            // $("#pn_arrendamiento").hide();
+            $("#pj_tarjeta_tributaria").show();
+            $("#pj_sociedad_nrc").show();
+            $("#pj_tipo_sociedad").hide();
+            $("#j_dir_representante").show();
+        } else {
+            $("#nj_propietario").hide();
+            $("#fnj_propietario").hide();
+            $("#nj_representante").hide();
+            $("#fnj_representante").hide();
+            $("#nit_sociedad_j").hide();
+            $("#pj_nrc_sociedad").hide();
+            $("#nit_juridico").hide();
+            // $("#pj_escritura_publica").hide();
+            $("#razon_social_j").hide();
+            $("#sec_dui").show();
+            $("#jsec_dui").hide();
+            $("#pj_acreditacion").hide();
+            $("#pj_tipo_sociedad").hide();
+            // $("#pnmatricula").show();
+            // $("#pn_arrendamiento").show();
+            $("#pj_tarjeta_tributaria").hide();
+            $("#pj_sociedad_nrc").hide();
+            $("#j_dir_representante").hide();
+            //si posee NRC 
+            if ("@@posee_nrc" == "si_nrc") {
+                $("#nrc_contribuyente").show();
+            } else {
+                $("#nrc_contribuyente").hide();
+            }
+        }
+        //Declaracion Jurada
+        $("#mostjuri").click(function () {
+            $('#jurada').show("slow");
+            $('#oculjuri').show("slow");
+            $('#mostjuri').hide("slow");
+        });
+        $("#oculjuri").click(function () {
+            $('#jurada').hide("fast");
+            $('#mostjuri').show("slow");
+            $('#oculjuri').hide("slow");
+        });
+
+        //Datos de JSON
+        //Establecimientos
+        var establecimientos;
+        var autoriza;
+        var renovacion;
+        var producto;
+        var nomestable;
+        var api_producto;
+        var api_servicio;
+        var idservicio;
+        var servicio=282.50;
+        var a_servicio=565;
+        var total_serv=0;
+        var total_establecimiento=0;
+        var formato = new Intl.NumberFormat('es-MX', {
+                style: 'currency',
+                currency: 'MXN',
+            });
+            // console.log(formato.format(servicio));
+        if (document.getElementsByName("tabla_establecimiento_prueba")[0].value != "") {
+            // api_producto = JSON.parse($("input[name='api_producto']")[0].value.slice(1, -1));
+            // var res=api_producto.filter(api_producto=>api_producto.estado!==1);
+            // api_servicio = JSON.parse($("input[name='api_rservicio']")[0].value.slice(1, -1));
+            // console.log(api_producto);
+
+            // console.log(res);
+            // establecimientos = JSON.parse((document.getElementsByName("prueba")[0].value).slice(1, -1));
+            establecimientos = JSON.parse($("[name='tabla_establecimiento_prueba']").val());
+            establecimientos.splice(0,1);
+            establecimientos.splice(establecimientos.length-1,1);
+
+            // producto = JSON.parse((document.getElementsByName("prueba_productos")[0].value).slice(1, -1));
+            producto = JSON.parse($("[name='tabla_presentaciones']").val());
+            producto.splice(0,1);
+            producto.splice(producto.length-1,1);
+            // console.log(producto);
+            // console.log(producto);
+
+            var datos = "";
+            var nav_link="";
+            var nav_pane="";
+            var dautoriza = "";
+            var drenovacion = "";
+            // var dproducto = "";
+            var dprodi = "";
+            var dprodsr = "";
+            var dprodrn = "";
+            var trnov=0;
+            var tauto=0;
+            var largoserv = 0;
+            var largoProd = 0;
+            var i=0
+            var vario="";
+            var sec;
+            var arch;
+            // console.log(documentos);
+            $.each(establecimientos, function (key, value) {
+                // datos += '<tr>';
+                i ++;
+                //Inicio de selec de permiso sanitario
+                // console.log(value[10]);
+                a=value[10];
+                va=a.substr(17,a.length-17);
+                va=parseInt(va);
+                // console.log(va);
+                switch(va){
+                    case 1:documentos["doc_"+a] = "@@permiso_sanitario1";break
+                    case 2:documentos["doc_"+a] = "@@permiso_sanitario2";break
+                    case 3:documentos["doc_"+a] = "@@permiso_sanitario3";break
+                    case 4:documentos["doc_"+a] = "@@permiso_sanitario4";break
+                    case 5:documentos["doc_"+a] = "@@permiso_sanitario5";break
+                    case 6:documentos["doc_"+a] = "@@permiso_sanitario6";break
+                    case 7:documentos['doc_'+a] = '@@permiso_sanitario7';break
+                    case 8:documentos['doc_'+a] = '@@permiso_sanitario8';break
+                    case 9:documentos['doc_'+a] = '@@permiso_sanitario9';break
+                    case 10:documentos['doc_'+a] = '@@permiso_sanitario10';break
+                    case 11:documentos['doc_'+a] = '@@permiso_sanitario11';break
+                    case 12:documentos['doc_'+a] = '@@permiso_sanitario12';break
+                    case 13:documentos['doc_'+a] = '@@permiso_sanitario13';break
+                    case 14:documentos['doc_'+a] = '@@permiso_sanitario14';break
+                    case 15:documentos['doc_'+a] = '@@permiso_sanitario15';break
+                    case 16:documentos['doc_'+a] = '@@permiso_sanitario16';break
+                    case 17:documentos['doc_'+a] = '@@permiso_sanitario17';break
+                    case 18:documentos['doc_'+a] = '@@permiso_sanitario18';break
+                    case 19:documentos['doc_'+a] = '@@permiso_sanitario19';break
+                    case 20:documentos['doc_'+a] = '@@permiso_sanitario20';break
+                    case 21:documentos['doc_'+a] = '@@permiso_sanitario21';break
+                    case 22:documentos['doc_'+a] = '@@permiso_sanitario22';break
+                    case 23:documentos['doc_'+a] = '@@permiso_sanitario23';break
+                    case 24:documentos['doc_'+a] = '@@permiso_sanitario24';break
+                    case 25:documentos['doc_'+a] = '@@permiso_sanitario25';break
+                    case 26:documentos['doc_'+a] = '@@permiso_sanitario26';break
+                    case 27:documentos['doc_'+a] = '@@permiso_sanitario27';break
+                    case 28:documentos['doc_'+a] = '@@permiso_sanitario28';break
+                    case 29:documentos['doc_'+a] = '@@permiso_sanitario29';break
+                    case 30:documentos['doc_'+a] = '@@permiso_sanitario30';break
+                }
+                //Fin de selec de permiso sanitario
+
+                // sec = "doc_per_san"+key;
+                // arch1 = '@@'.concat(value[10]);
+                // arch1.toString();
+                // console.log(typeof(arch1));
+                // console.log(arch1);
+                // arch = "@@permiso_sanitario1";
+                // console.log(typeof(arch));
+                // console.log(arch);
+                // documentos["doc_per_san"+key] = "@@".concat(value[10]);
+                // documentos["doc_per_san"+key] = arch1;
+
+                // documentos["doc_per_san0b"]="@@permiso_sanitario1";
+                // console.log(documentos["doc_per_san"+key]);
+                // console.log(documentos);
+                if(key==0){
+                    nav_link +="<button class='nav-link active mb-1' id='v-pills-"+i+"-tab' data-toggle='pill' data-target='#v-pills-"+i+"' type='button' role='tab' aria-controls='v-pills-"+i+"' aria-selected='true'>Estabecimiento "+i+"</button>"
+                    nav_pane +="<div class='tab-pane fade show active' id='v-pills-"+i+"' role='tabpanel' aria-labelledby='v-pills-"+i+"-tab'>"
+                }else{
+                    nav_link +="<button class='nav-link mb-1' id='v-pills-"+i+"-tab' data-toggle='pill' data-target='#v-pills-"+i+"' type='button' role='tab' aria-controls='v-pills-"+i+"' aria-selected='true'>Estabecimiento "+i+"</button>"
+                    nav_pane +="<div class='tab-pane fade' id='v-pills-"+i+"' role='tabpanel' aria-labelledby='v-pills-"+i+"-tab'>"
+                }
+                datos += '<div clas="cont_row">';
+                // datos += '<tr><td><b>Tipo: </b></td><td>' + value[1] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Tipo:</p></div><div class="cont_descrip"><p>' + value[1] + '</p></div>';
+                // datos += '<tr><td><b>Nombre: </b></td><td>' + value[2] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Nombre:</p></div><div class="cont_descrip"><p>' + value[2] + '</p></div>';
+                nomestable = value[2];
+                // datos += '<tr><td><b>Región: </b></td><td>' + value[4] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Región:</p></div><div class="cont_descrip"><p>' + value[4] + '</p></div>';
+                // datos += '<tr><td><b>Departamento: </b></td><td>' + value[7] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Departamento:</p></div><div class="cont_descrip"><p>' + value[7] + '</p></div>';
+                // datos += '<tr><td><b>Municipio: </b></td><td>' + value[8] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Municipio:</p></div><div class="cont_descrip"><p>' + value[8] + '</p></div>';
+                // datos += '<tr><td><b>Dirección: </b></td><td>' + value[3] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Dirección:</p></div><div class="cont_descrip"><p>' + value[3] + '</p></div>';
+                // datos += '<tr><td><b>Teléfono: </b></td><td>' + value[5] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Teléfono:</p></div><div class="cont_descrip"><p>' + value[5] + '</p></div>';
+                // datos += '<tr><td><b>Correo: </b></td><td>' + value[6] + '</td></tr>';
+                datos += '<div class="cont_titulo"><p>Correo:</p></div><div class="cont_descrip"><p>' + value[6] + '</p></div>';
+                // datos += '</tr>';
+                datos +='</div>';
+                $.each(producto, function (pkey, pvalue) {
+                    if (pvalue[1] == value[0]) {
+                        if(pvalue[5]=="Autorización"){
+                            if(tauto==0){
+                                tauto=282.50;
+                            }
+                            dprodi += '<tr>';
+                            dprodi += '<td>' + pvalue[2] +'</td>';
+                            dprodi += '<td>' + pvalue[4] + '</td>';
+                            // dprodi += '<td>' + formato.format(pvalue[6]) + '</td>';
+                            // total_establecimiento += pvalue[6];
+                            // total_serv += pvalue[6];
+                            dprodi += '</tr>';
+                        }else{
+                            if(trnov==0){
+                                trnov=282.50;
+                            }
+                            dprodsr += '<tr>';
+                            dprodsr += '<td>' + pvalue[2] +'</td>';
+                            dprodsr += '<td>' + pvalue[4] + '</td>';
+                            // dprodi += '<td>' + formato.format(pvalue[6]) + '</td>';
+                            // total_establecimiento += pvalue[6];
+                            // total_serv += pvalue[6];
+                            dprodsr += '</tr>';
+                        }
+                    }
+                })
+                total_establecimiento = tauto+trnov;
+                total_serv+=total_establecimiento;
+                var acordion="";
+                $('#v-pills-tab').append(nav_link);
+                nav_link="";
+            acordion+=nav_pane;
+            acordion+="<div class='inter'>";
+            acordion+="<div class='prod_detalle cont_est'>";
+            // acordion+="<table class='table table-hover'>";
+            acordion+=datos;
+            // acordion+="</table>";
+            acordion+="</div>";
+            acordion+="<br>";
+            acordion+="<div class='prod_detalle'>";
+                vario="el servicio";
+            if(tauto>0){
+                acordion+="<table class='table table-hover'><tr class='encabezado'><th colspan='2' style='text-align: center'>Detalle de los productos que requieren autorización</th></tr><tr><th>Producto</th><th>Presentación</th></tr>";
+                acordion+=dprodi;
+                acordion+= "</table>";
+            }
+            if(tauto>0 && trnov>0){
+                acordion+="</div>";
+                acordion+="<br>";
+                acordion+="<div class='prod_detalle'>";
+                    vario="los servicios";
+            }
+            if(trnov>0){
+                acordion+="<table class='table table-hover'><tr class='encabezado'><th colspan='2' style='text-align: center'>Detalle de los productos que requieren renovación</th></tr><tr><th>Producto</th><th>Presentación</th></tr>";
+                acordion+=dprodsr;
+                acordion+= "</table>";
+            }
+            acordion+="<div class='sub_tp sub_resumen pb-3'>Total pagado por "+vario+" que solicita para este establecimiento: "+formato.format(total_establecimiento)+"</div>";
+            acordion+="</div>";
+            acordion+="<br>";
+            acordion+="<div class='prod_detalle'>";
+                acordion+="<div class='sub_resumen pb-3 encabezado'>Documentación presentada por establecimiento</div>";
+            //inicio comprobante de pago
+            acordion+="<div class='com_pago row justify-content-between px-4'>";
+                acordion+="<div>";
+                    acordion+="<span id='s-p_com_pag' class='badge font-md'>Comprobante de pago</span>";
+                acordion+="</div>";
+                acordion+="<div>";
+                    acordion+="<span id='s-doc_com_pago"+key+"'></span>";
+                acordion+="</div>";
+            acordion+="</div>";
+            //Fin comprobante de pago
+            //inicio comprobante de pago
+            acordion+="<div class='row justify-content-between px-4'>";
+                acordion+="<div>";
+                    acordion+="<span id='s-p_per_san' class='badge font-md'>Permiso Sanitario</span>";
+                acordion+="</div>";
+                acordion+="<div>";
+                    acordion+="<span id='s-doc_"+a+"'></span>";
+                acordion+="</div>";
+            acordion+="</div>";
+            //Fin comprobante de pago
+            acordion+="</div>";
+            acordion+="</div><br></div>";
+            // console.log(acordion);
+            $('#v-pills-tabContent').append(acordion);
+            nav_pane="";
+            total_establecimiento=0;
+            dprodi = "";
+            datos="";
+            tauto=0;
+            trnov=0;
+            })
+            $('#t_pagado').append("Total pagado por el solicitante: "+formato.format(total_serv));
+            
+            var plinea="";
+            if("@@pago_de_servicio"=="pago_en_linea"){
+                $(".sub_tp").hide();
+                plinea+="<div id='p_linea' class='container mb-1'>";
+                    plinea+="<div class='row justify-content-between px-3'>";
+                        plinea+="<div>";
+                            plinea+="<span id='s-p_per_san' class='badge font-md'>Comprobante de pago en linea</span>";
+                        plinea+="</div>";
+                        plinea+="<div>";
+                            plinea+="<span id='s-doc_plinea'></span>";
+                        plinea+="</div>";
+                    plinea+="</div>";
+                plinea+="</div>";
+                $('#t_pagado_linea').append(plinea
+                    // 'Comprobante de pago <br> <b><a href="/@@pagar_aqui__Tablon" download="Comprobante de pago.pdf">Dar clic aqui</a></b>'
+                );
+            }
+        }
+        // PUNTO DE REFERENCIA DEL ESTABLECIMIENTO PARA VER SI ES NULL
+        if ("@@punto_de_referencia_est" != "null") {
+            $("#puntoReferencia").show();
+            $("#puntoReferenciaHr").show();
+        } else {
+            $("#puntoReferencia").hide();
+            $("#puntoReferenciaHr").hide();
+        }
+
+        
+
+        $("p.link").each(function (index, value) {
+            var item = $(value).find("a");
+            var llaves = Object.keys(documentos);
+            llaves.forEach((llave) => {
+                if (item.text() == documentos[llave]) {
+                    if (documentos[llave] != '') {
+                        var visualizar = "<button class='btn btn-secondary btn-sm visualizador m-1' data-documento='" + llave + "' type='button'>Visualizar</button>";
+                        $("#s-" + llave).append(visualizar);
+                    }
+                    var anchor = item.html("Descargar").addClass("btn btn-primary btn-sm");
+                    $("#s-" + llave).append(anchor);
+                }
+            });
+        });
+
+        $(".visualizador").click(function (e) {
+            e.preventDefault();
+            var documento_nombre = documentos[$(this).data('documento')];
+            let url = window.location.origin;
+            $("#pdfBody").attr('src', url + '/uploads/datos/' + documento_nombre);
+            $("#pdfModal").modal('show');
+        });
+         // acordion
+        var accordion = function () {
+            var data = $(".accordion").attr("data-accordion");
+            $(".accordion-header").on("click", function () {
+                if (data === "close") {
+                    $("accordion-body").slideUp();
+                    if ($(this).hasClass("active")) {
+                        $(this).toggleClass("active");
+                    }
+                    else {
+                        $(".accordion-header").removeClass("active");
+                        $(this).toggleClass("active");
+                    }
+                }
+                else {
+                    $(this).toggleClass("active");
+                }
+                $(this).next(".accordion-body").not(":animated").slideToggle();
+            });
+        }
+
+        accordion()
+    });
+   
+</script>
