@@ -673,6 +673,22 @@
                     </div>
                 </div>
             </div>
+            <div class="row pl-2" id="nrc_contribuyente_pj">
+                <div class="col-12">
+                    <span>
+                        Número de registro de contribuyente de la sociedad (NRC):
+                    </span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-between px-3">
+                        <div>
+                            <span id="idnrc" class="badge font-md, mayus">
+                                @@nrc_sociedad1
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row pl-2" id="nrc_contribuyente">
                 <div class="col-12">
                     <span>
@@ -983,6 +999,7 @@
             "doc_poder": "@@subir_archivo",
             "doc_poder_pn": "@@subir_archivo1",
             "doc_nrc_doc": "@@subir_nrc_natural",
+            // "doc_nrc_doc_pj": "@@nrc_sociedad1",
             "doc_com_pago0": "@@recibo_pagado1",
             "doc_com_pago1": '@@recibo_pagado2',
             "doc_com_pago2": "@@recibo_pagado3",
@@ -1072,6 +1089,7 @@
                 $("#pj_escritura_publica_j").hide();
                 $('#com_bodega').append("''No'', Esta empresa no posee bodega");
             }
+            $("#pj_sociedad_nrc").show();
             $("#nrc_contribuyente").hide();
             $("#pj_propietario").show();
             $("#pn_tipotramite").hide();
@@ -1114,6 +1132,7 @@
                 $("#pj_escritura_publica_j").hide();
                 $('#com_bodega').append("''No'', Esta empresa no posee bodega");
             }
+            $("#pj_sociedad_nrc").hide();
             $("#pj_propietario").hide();
             $("#nrc_contribuyente").show();
             $("#pn_tipotramite").show();
@@ -1130,11 +1149,6 @@
                 $("#sec_dui").show();
                 $("#sec_dui_t").hide();
             }else if("@@tramite_es" == "tercero"){
-                // $("#ra_social").show();
-                // $("#d_ra_social").show();
-                // $("#tel_empresa").show();
-                // $("#pn_permiso_sanitario").show();
-                // $("#e_mail").show();
                 $("#sec_dui").hide();
                 $("#sec_dui_t").show();
                 
